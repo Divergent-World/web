@@ -1,0 +1,146 @@
+/* Divergent.World — global foundation.
+   Everything here is truly global: reset, palette, type, and the generated
+   star field data consumed by the homepage composition. */
+
+:root {
+  color-scheme: dark;
+
+  --void: #000000;
+  --text: rgba(255, 255, 255, 0.94);
+  --text-muted: rgba(255, 255, 255, 0.66);
+  --text-dim: rgba(255, 255, 255, 0.55);
+  --hairline: rgba(255, 255, 255, 0.09);
+
+  /* Accretion palette — warm, low saturation, deliberately restrained. */
+  --accretion-hot: rgba(255, 226, 194, 0.9);
+  --accretion-warm: rgba(255, 190, 134, 0.55);
+  --accretion-deep: rgba(255, 158, 96, 0.42);
+  --accretion-cool: rgba(168, 148, 226, 0.22);
+
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-serif:
+    ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
+    "Times New Roman", serif;
+
+  /* Star field: deterministic positions, baked at authoring time so the
+     backdrop costs zero DOM nodes and zero JavaScript. */
+  --stars-still:
+    radial-gradient(1px 1px at 36.95% 75.42%, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 92.78% 26.7%, rgba(255,255,255,0.57) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 94.74% 13.66%, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 68.59% 57.08%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 10.92% 97.66%, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 15.11% 1.34%, rgba(255,255,255,0.43) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 6.13% 33.29%, rgba(255,255,255,0.61) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 36.84% 36.38%, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 16.58% 14.63%, rgba(255,255,255,0.61) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 61.4% 24.01%, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 72.34% 62.23%, rgba(255,255,255,0.56) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 16.84% 23.31%, rgba(255,255,255,0.44) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 76.26% 19.6%, rgba(255,255,255,0.63) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 81.44% 79.39%, rgba(255,255,255,0.39) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 49.01% 15.12%, rgba(255,255,255,0.39) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 54.3% 96.76%, rgba(255,255,255,0.47) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 95.4% 11.06%, rgba(255,255,255,0.62) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 87.92% 65.51%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 63.69% 30.61%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 91.52% 32.92%, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 45.42% 85.45%, rgba(255,255,255,0.54) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 11.19% 34.36%, rgba(255,255,255,0.43) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 78.48% 75.7%, rgba(255,255,255,0.64) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 27.95% 95.05%, rgba(255,255,255,0.47) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 2.5% 7.33%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 41.71% 21.19%, rgba(255,255,255,0.39) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 54.63% 26.68%, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 36.27% 95.7%, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 15.8% 11.7%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 2.2% 11.07%, rgba(255,255,255,0.47) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 5.2% 44.01%, rgba(255,255,255,0.67) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 38.69% 92.26%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 3.51% 18.13%, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1px 1px at 16.82% 16.06%, rgba(255,255,255,0.47) 0%, rgba(255,255,255,0) 100%);
+  --stars-drift:
+    radial-gradient(1.2px 1.2px at 46.6% 83.11%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 73.27% 1.61%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 0.14% 61.4%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 69.47% 61.54%, rgba(255,255,255,0.29) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 85.03% 8.48%, rgba(255,255,255,0.38) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 4.81% 45.11%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 3.55% 68.31%, rgba(255,255,255,0.51) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 68.48% 4.95%, rgba(255,255,255,0.48) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 98.67% 3.19%, rgba(255,255,255,0.37) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 60.06% 59.61%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 95.1% 35.4%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 59.78% 35.53%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 1.66% 90.97%, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 91.98% 35.51%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 31.41% 87.21%, rgba(255,255,255,0.31) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 55.87% 28.54%, rgba(255,255,255,0.39) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 0.72% 13.05%, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 2.61% 67.83%, rgba(255,255,255,0.41) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 31.07% 19.81%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.2px 1.2px at 72.62% 52.13%, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0) 100%);
+  --stars-bright:
+    radial-gradient(1.6px 1.6px at 80.43% 27.07%, rgba(255,255,255,0.46) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 79.44% 31.24%, rgba(255,255,255,0.47) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 4.95% 59.26%, rgba(255,255,255,0.69) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 91.19% 50.7%, rgba(255,255,255,0.79) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 77.98% 20.02%, rgba(255,255,255,0.73) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 24.69% 14.89%, rgba(255,255,255,0.67) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 3.21% 89.72%, rgba(255,255,255,0.63) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 87.29% 52.75%, rgba(255,255,255,0.51) 0%, rgba(255,255,255,0) 100%),
+    radial-gradient(1.6px 1.6px at 33.5% 52.64%, rgba(255,255,255,0.54) 0%, rgba(255,255,255,0) 100%);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--void);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow-x: clip;
+  background-color: var(--void);
+  color: var(--text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Available to assistive technology, absent from the visual composition. */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
