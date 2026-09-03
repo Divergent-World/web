@@ -35,7 +35,6 @@
 - Create `app/components/black-hole/black-hole-shaders.ts`: the adapted cockpit vertex, accretion, and lensing shaders.
 - Create `app/components/black-hole/BlackHoleCanvas.tsx`: transparent decorative Canvas and five-mesh procedural renderer.
 - Create `app/components/UniverseExperience.tsx`: selected-entry state, semantic orbital buttons, CSS fallback, and shared detail panel.
-- Create `tests/homepage-source.test.mjs`: source contracts for the accessibility and founder requirements that are awkward to exercise without adding a DOM framework.
 - Create `public/images/ali-rahman.png`: unchanged copy of the supplied 1024×1024 portrait.
 - Modify `app/page.tsx`: server-rendered page shell, founder section, and footer.
 - Modify `app/page.module.css`: architectural theme, responsive universe, orbital controls, detail panel, founder composition, and reduced motion.
@@ -563,7 +562,6 @@ git commit -m "feat: add procedural black hole renderer"
 
 **Files:**
 - Create: `app/components/UniverseExperience.tsx`
-- Create: `tests/homepage-source.test.mjs`
 - Create: `public/images/ali-rahman.png`
 - Modify: `app/page.tsx`
 - Modify: `app/page.module.css`
@@ -576,41 +574,7 @@ git commit -m "feat: add procedural black hole renderer"
 - Consumes: `DIVISIONS`, `DIVERGENT_WORLD`, `getUniverseEntry`, and dynamically imported `BlackHoleCanvas`.
 - Produces: a native-button universe with stable detail-panel ID `universe-detail`, and a server-rendered founder section using `/images/ali-rahman.png`.
 
-- [ ] **Step 1: Write failing semantic source contracts**
-
-Create `tests/homepage-source.test.mjs`:
-
-```js
-import assert from 'node:assert/strict'
-import { readFile } from 'node:fs/promises'
-import test from 'node:test'
-
-const read = (path) => readFile(new URL(path, import.meta.url), 'utf8')
-
-test('universe controls remain semantic outside WebGL', async () => {
-  const source = await read('../app/components/UniverseExperience.tsx')
-  assert.match(source, /aria-controls="universe-detail"/)
-  assert.match(source, /aria-expanded=/)
-  assert.match(source, /role="status"/)
-  assert.match(source, /dynamic\(.*BlackHoleCanvas/s)
-  assert.match(source, /ssr: false/)
-})
-
-test('homepage explicitly presents Ali Rahman without private cockpit copy', async () => {
-  const source = await read('../app/page.tsx')
-  assert.match(source, /Founded by Ali Rahman/)
-  assert.match(source, /Ali Rahman, founder of Divergent World\./)
-  assert.doesNotMatch(source, /cockpit|household|telemetry|approval/i)
-})
-```
-
-- [ ] **Step 2: Run the tests and verify the missing-page-contract failure**
-
-Run `npm test`.
-
-Expected: the universe source contract FAILS because `UniverseExperience.tsx` does not exist, and the founder contract FAILS because the current page has no founder section.
-
-- [ ] **Step 3: Add the supplied portrait unchanged**
+- [ ] **Step 1: Add the supplied portrait unchanged**
 
 Run:
 
@@ -628,7 +592,7 @@ shasum -a 256 /Users/alirahman/Desktop/Life/Ali.png public/images/ali-rahman.png
 
 Expected: both files report 1024×1024 and identical SHA-256 hashes.
 
-- [ ] **Step 4: Implement the semantic interactive universe**
+- [ ] **Step 2: Implement the semantic interactive universe**
 
 Create `app/components/UniverseExperience.tsx` with `'use client'` and these exact behaviors:
 
@@ -730,7 +694,7 @@ export default function UniverseExperience() {
 
 The selected orbit and its counter-rotating control use `animation-play-state: paused`. Other orbits continue moving. Selecting the center changes only `selectedId`; it does not navigate or manipulate focus.
 
-- [ ] **Step 5: Replace the server-rendered page shell**
+- [ ] **Step 3: Replace the server-rendered page shell**
 
 Replace `app/page.tsx` with:
 
@@ -796,7 +760,7 @@ export default function Home() {
 }
 ```
 
-- [ ] **Step 6: Rebuild the visual system from the portrait**
+- [ ] **Step 4: Rebuild the visual system from the portrait**
 
 Replace `app/page.module.css` rather than layering overrides on the old single-world composition. Use these fixed design tokens and layout contracts:
 
@@ -1240,7 +1204,7 @@ every class referenced by `page.tsx` and `UniverseExperience.tsx`:
 Use the existing deterministic star variables from `globals.css`; do not
 generate DOM stars or add decorative image assets.
 
-- [ ] **Step 7: Update global foundation and metadata**
+- [ ] **Step 5: Update global foundation and metadata**
 
 In `app/globals.css`, retain the reset, screen-reader utility, and deterministic starfield variables. Change the root palette to the new warm tokens, add `scroll-behavior: smooth`, and disable smooth scrolling inside the existing reduced-motion media query. Do not import remote fonts; retain system sans and the existing Iowan/Palatino/Georgia serif stack.
 
@@ -1259,7 +1223,7 @@ alt: 'Divergent World — technology, media, and design orbiting one institution
 
 Keep `SITE_NAME`, canonical URL, robots, Twitter card, and public R2 URL construction unchanged.
 
-- [ ] **Step 8: Update the repository handoff**
+- [ ] **Step 6: Update the repository handoff**
 
 Rewrite the README opening and architecture sections to state:
 
@@ -1271,7 +1235,7 @@ Rewrite the README opening and architecture sections to state:
 
 Remove the obsolete claims that the page ships no application JavaScript and that new destinations are added only through `lib/worlds.ts`.
 
-- [ ] **Step 9: Run automated verification**
+- [ ] **Step 7: Run automated verification**
 
 Run:
 
@@ -1285,10 +1249,10 @@ git diff --check
 
 Expected: all tests PASS, lint and typecheck exit 0, the Next.js production build succeeds, and the diff check prints nothing.
 
-- [ ] **Step 10: Commit the complete landing page**
+- [ ] **Step 8: Commit the complete landing page**
 
 ```bash
-git add app lib/site.ts public/images/ali-rahman.png tests/homepage-source.test.mjs README.md
+git add app lib/site.ts public/images/ali-rahman.png README.md
 git commit -m "feat: build founder-led Divergent World homepage"
 ```
 

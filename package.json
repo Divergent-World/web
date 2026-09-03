@@ -2,12 +2,14 @@
   "name": "divergent-world",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "Divergent.World — the portal for a growing universe of creative works.",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "node --test tests/*.test.*",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc --noEmit"
