@@ -15,6 +15,10 @@ private Divergent World cockpit while keeping the public experience fast,
 accessible, and honest about which destinations exist today. Revelation is the
 only live outbound world in this release and belongs beneath Divergent Media.
 
+The experience also introduces Ali Rahman explicitly as the founder and uses
+his supplied portrait as the primary reference for the site's architectural
+and visual language.
+
 ## Public Story
 
 Divergent World is the central institution. Its three visible branches express
@@ -30,6 +34,29 @@ Divergent Ventures and Divergent Properties remain part of the long-term
 institutional model but are not shown in this initial public composition. They
 have not reached the active public sequence and would distract from the three
 branches the homepage can represent truthfully now.
+
+## Visual Direction
+
+Derive the interface from the supplied founder portrait rather than treating
+the image as an isolated content block. Its defining visual principles are:
+
+- Monumental curved architecture framing a human figure.
+- A luminous overhead oculus that echoes the black hole and orbital rings.
+- Warm limestone and concrete balanced by deep tailored black.
+- Muted oxblood as a rare structural accent rather than a generic brand color.
+- Ivory light, bronze reflections, generous negative space, and quiet scale.
+- A retrofuturist atmosphere that feels inhabited, tactile, and intentional
+  instead of neon, synthetic, or conventionally corporate.
+
+The cosmic hero remains dark, but its accretion palette moves toward ivory,
+champagne, warm bronze, and restrained oxblood. Typography pairs an editorial
+serif for consequential statements with a precise, widely tracked sans serif
+for labels and navigation. Large arcs, inset borders, apertures, and threshold
+shapes repeat across sections so the page reads as one piece of architecture.
+
+Avoid glassmorphism, saturated cyberpunk gradients, generic SaaS cards,
+decorative dashboards, and excessive glow. The visual system should feel like
+entering a long-lived institution built inside a speculative monument.
 
 ## Experience
 
@@ -53,6 +80,31 @@ but remains scrollable instead of forcing all content into one viewport.
 
 Labels remain visible without requiring hover. Hover is enhancement only;
 touch, click, and keyboard activation all use the same selection path.
+
+## Founder Section
+
+Place an explicit founder section immediately after the interactive universe.
+Its primary heading is `Founded by Ali Rahman` and the supplied portrait is the
+dominant visual element.
+
+At 60rem and wider, the section uses an asymmetric two-column composition: the
+portrait occupies the larger column while a short founder statement occupies
+the other. Below 60rem, the portrait appears first at its natural square ratio,
+followed by the text. Do not crop out the overhead oculus, architectural arches,
+or Ali's full upper-body silhouette; those elements establish the site's visual
+thesis.
+
+The founder copy should be concise and public-facing: Ali Rahman founded
+Divergent World to build one enduring institution across technology, media,
+and design, with the purpose of increasing human potential. It must not import
+private biography, household plans, cockpit metrics, or personal operating
+details from the archival repository.
+
+Copy the supplied source image into the public site's asset tree under a stable,
+descriptive filename and render it through Next.js image optimization. The
+image receives the concise alternative text `Ali Rahman, founder of Divergent
+World.` No generated extension, retouching, compositing, or other image edit is
+part of this release.
 
 ## Rendering Architecture
 
@@ -80,7 +132,8 @@ assets, or post-processing dependency are required.
 ### Homepage server component
 
 `app/page.tsx` owns the public headline, mission copy, page landmarks, and the
-server-rendered shell around the interactive universe.
+server-rendered shell around the interactive universe. It also owns the founder
+section and optimized portrait because neither requires client-side state.
 
 ### Universe experience
 
@@ -140,6 +193,8 @@ Mobile constraints:
 - Interactive targets are at least 44 by 44 CSS pixels even when their visible
   stars are smaller.
 - The detail panel follows the scene in document flow.
+- The founder portrait retains its square composition, including the oculus and
+  architectural context, before its accompanying text.
 - Canvas device-pixel ratio is capped, geometry remains restrained, and no
   texture memory is introduced.
 - The layout accounts for small viewport height and safe-area insets.
@@ -191,6 +246,10 @@ Architecture source material informs public copy, but personal cockpit content,
 private operating metrics, household plans, agent telemetry, and internal
 project data are not imported or exposed.
 
+The founder section names Ali Rahman and explains his relationship to the
+institution in one short paragraph. It is not a resume, personal timeline, or
+long-form biography.
+
 ## Verification
 
 Implementation is complete only after:
@@ -201,7 +260,8 @@ Implementation is complete only after:
 4. Desktop browser QA confirms the shader, three moving branches, selection,
    orbit pausing, institutional reset, and Revelation navigation contract.
 5. iPhone-sized browser QA confirms the black hole remains visible, targets are
-   usable, labels do not overflow, and the detail panel follows naturally.
+   usable, labels do not overflow, the detail panel follows naturally, and the
+   full portrait composition remains legible without horizontal overflow.
 6. Keyboard QA confirms predictable tab order, focus visibility, activation,
    and access to Revelation.
 7. Reduced-motion QA confirms a stable composition with no orbit or shader
@@ -222,6 +282,8 @@ surface without adding testing infrastructure solely for one interaction.
 - Public presentation of Divergent Ventures or Divergent Properties.
 - Camera orbit, zoom, pan, object fly-ins, or canvas raycasting.
 - Private cockpit content, controls, telemetry, music, agents, or navigation.
+- Retouching, regenerating, extending, or otherwise altering the supplied
+  founder portrait.
 - Revelation subdomain changes.
 - Vercel configuration, DNS changes, deployment, analytics, or CMS work.
 - Committing implementation, pushing the branch, or opening a pull request
