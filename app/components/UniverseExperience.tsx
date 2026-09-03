@@ -99,6 +99,10 @@ export default function UniverseExperience() {
           ))}
         </div>
       </article>
+
+      <a className={styles.scrollCue} href="#about">
+        Continue to About ↓
+      </a>
     </section>
   )
 }

@@ -255,6 +255,27 @@
   pointer-events: auto;
 }
 
+.scrollCue {
+  position: absolute;
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: max(1.25rem, env(safe-area-inset-left));
+  z-index: 4;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: rgba(243, 234, 220, 0.62);
+  font-size: clamp(0.5625rem, 0.65vw, 0.6875rem);
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  touch-action: pan-y;
+}
+
+.scrollCue:hover,
+.scrollCue:focus-visible {
+  color: var(--ivory);
+}
+
 .founder {
   position: relative;
   z-index: 1;
@@ -265,37 +286,41 @@
 
 .founderVisual {
   position: absolute;
-  inset: 0;
+  top: 4.5rem;
+  right: 34vw;
+  bottom: 2rem;
+  left: max(1.25rem, env(safe-area-inset-left));
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at 52% 18%, rgba(243, 234, 220, 0.14), transparent 42%);
-}
-
-.founderVisual::after {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 78%, transparent 20%, rgba(8, 7, 6, 0.34) 62%, #080706 94%),
-    linear-gradient(to bottom, #080706 0 13%, rgba(8, 7, 6, 0.9) 17%, transparent 29% 68%, #080706 96%);
   pointer-events: none;
-  content: "";
+  animation: founderDrift 13s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
 .founderImage {
   display: block;
-  width: min(76vw, 72rem);
+  width: min(58vw, 78svh, 56rem);
+  max-width: 100%;
+  max-height: calc(100svh - 7rem);
   height: auto;
-  opacity: 0.88;
-  -webkit-mask-image: radial-gradient(ellipse 64% 60% at 50% 48%, #000 42%, rgba(0, 0, 0, 0.84) 60%, transparent 100%);
-  mask-image: radial-gradient(ellipse 64% 60% at 50% 48%, #000 42%, rgba(0, 0, 0, 0.84) 60%, transparent 100%);
+  object-fit: contain;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 4%, #000 96%, transparent),
+    linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 4%, #000 96%, transparent),
+    linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent);
+  mask-composite: intersect;
 }
 
 .founderCopy {
   position: absolute;
+  top: 50%;
   right: max(1.25rem, env(safe-area-inset-right));
-  bottom: max(2rem, env(safe-area-inset-bottom));
   z-index: 2;
   width: min(22rem, calc(100% - 2.5rem));
+  translate: 0 -50%;
 }
 
 .founderCopy h2 {
@@ -387,6 +412,15 @@
   }
 }
 
+@keyframes founderDrift {
+  from {
+    transform: translate3d(-0.4rem, 0.55rem, 0) rotate(-0.2deg);
+  }
+  to {
+    transform: translate3d(0.5rem, -0.45rem, 0) rotate(0.2deg);
+  }
+}
+
 @media (max-width: 48rem) {
   .sceneIntro {
     top: max(5rem, calc(env(safe-area-inset-top) + 4.2rem));
@@ -398,8 +432,21 @@
     width: min(17rem, calc(100% - 2rem));
   }
 
+  .scrollCue {
+    bottom: max(4.75rem, calc(env(safe-area-inset-bottom) + 4rem));
+  }
+
+  .founderVisual {
+    top: max(5.75rem, calc(env(safe-area-inset-top) + 5rem));
+    right: 0.75rem;
+    bottom: 10rem;
+    left: 0.75rem;
+    place-items: start center;
+  }
+
   .founderImage {
-    width: min(112vw, 48rem);
+    width: min(100%, 38rem);
+    max-height: calc(100svh - 18rem);
   }
 }
 
@@ -434,9 +481,11 @@
   }
 
   .founderCopy {
+    top: auto;
     right: auto;
     bottom: max(1.5rem, env(safe-area-inset-bottom));
     left: 1.25rem;
+    translate: none;
   }
 
   .founderCopy h2 {
@@ -448,7 +497,8 @@
   .starsDrift,
   .starsBright,
   .annotationSurface,
-  .annotationSurface::before {
+  .annotationSurface::before,
+  .founderVisual {
     animation: none;
   }
 

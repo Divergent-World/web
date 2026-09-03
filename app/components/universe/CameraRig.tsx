@@ -10,6 +10,7 @@ import {
   getCameraDestination,
   getCameraFlightProgress,
   getTrackingTranslation,
+  shouldReleasePageScroll,
 } from './scene-model'
 
 type Props = {
@@ -65,11 +66,28 @@ export default function CameraRig({
       tracking.current = null
     }
 
+    const releasePageScroll = (event: WheelEvent) => {
+      const distance = camera.position.distanceTo(nextControls.target)
+      if (
+        shouldReleasePageScroll(
+          distance,
+          nextControls.maxDistance,
+          event.deltaY,
+        )
+      ) {
+        event.stopImmediatePropagation()
+      }
+    }
+
     nextControls.addEventListener('start', cancelAutomaticMotion)
+    gl.domElement.addEventListener('wheel', releasePageScroll, {
+      capture: true,
+    })
     controls.current = nextControls
 
     return () => {
       nextControls.removeEventListener('start', cancelAutomaticMotion)
+      gl.domElement.removeEventListener('wheel', releasePageScroll, true)
       nextControls.dispose()
       controls.current = null
     }

@@ -36,7 +36,7 @@ export default function Home() {
               alt="Ali Rahman, founder of Divergent World."
               width={1024}
               height={1024}
-              sizes="(min-width: 60rem) 68vw, 100vw"
+              sizes="(min-width: 60rem) 58vw, 100vw"
               className={styles.founderImage}
             />
           </div>

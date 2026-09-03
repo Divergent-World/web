@@ -9,6 +9,7 @@ import {
   getCameraFlightProgress,
   getParticleCount,
   getTrackingTranslation,
+  shouldReleasePageScroll,
 } from '../app/components/universe/scene-model.ts'
 
 test('places the camera relative to the selected body', () => {
@@ -54,4 +55,10 @@ test('tracking translation preserves the camera offset from a moving target', ()
     getTrackingTranslation([1, 2, 3], [4, 6, 8]),
     [3, 4, 5],
   )
+})
+
+test('releases downward wheel motion only at the camera boundary', () => {
+  assert.equal(shouldReleasePageScroll(64, 64, 120), true)
+  assert.equal(shouldReleasePageScroll(63.6, 64, 120), false)
+  assert.equal(shouldReleasePageScroll(64, 64, -120), false)
 })

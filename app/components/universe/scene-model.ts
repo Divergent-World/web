@@ -9,7 +9,7 @@ export const OVERVIEW_CAMERA = {
   target: [0, 0, 0] as Vector3Tuple,
   fov: 38,
   minDistance: 9,
-  maxDistance: 86,
+  maxDistance: 64,
 }
 
 const CAMERA_OFFSETS: Record<UniverseEntryId, Vector3Tuple> = {
@@ -98,4 +98,12 @@ export function getTrackingTranslation(
   return nextTarget.map(
     (value, index) => value - previousTarget[index],
   ) as Vector3Tuple
+}
+
+export function shouldReleasePageScroll(
+  cameraDistance: number,
+  maxDistance: number,
+  wheelDeltaY: number,
+) {
+  return wheelDeltaY > 0 && cameraDistance >= maxDistance - 0.25
 }
