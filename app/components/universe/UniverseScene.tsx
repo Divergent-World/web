@@ -152,7 +152,7 @@ function SceneContents({
     else objectRegistry.current.delete(id)
   }
 
-  const selectWorld = (event: ThreeEvent<MouseEvent>) => {
+  const selectWorld = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation()
     onSelect('world')
   }
@@ -162,7 +162,7 @@ function SceneContents({
       <BackgroundStars />
       <group ref={(node) => registerObject('world', node)}>
         <BlackHole reducedMotion={reducedMotion} />
-        <mesh name="black-hole-hit-target" onClick={selectWorld}>
+        <mesh name="black-hole-hit-target" onPointerDown={selectWorld}>
           <sphereGeometry args={[4.6, 16, 12]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>

@@ -16,10 +16,13 @@ procedural black hole:
 Next.js 16 (App Router, Turbopack) · React 19 · TypeScript · CSS Modules ·
 React Three Fiber.
 
-The page uses a hybrid architecture. Its content and accessible controls render
-as ordinary HTML, a lightweight WebGL canvas supplies the procedural black hole,
-and a CSS black-hole layer remains visible underneath as the no-WebGL fallback.
-No textures, post-processing pipeline, or UI framework are required.
+The page uses a hybrid architecture. One React Three Fiber canvas owns the
+procedural black hole, particle halo, orbit paths, and moving celestial bodies.
+Direct Three.js controls provide drag, wheel, and two-finger pinch navigation,
+while a fixed native-HTML system index mirrors every canvas selection. A CSS
+universe remains underneath so the index, annotation, About navigation, and
+Revelation link stay usable when WebGL is unavailable. No textures,
+post-processing pipeline, or UI framework are required.
 
 ## Getting started
 
@@ -66,8 +69,9 @@ Expected object:
 
 ## Accessibility and motion
 
-Every destination is a native button or link, orbit labels remain visible, and
-the central canvas is decorative. Touch targets are at least 44 pixels square.
-`prefers-reduced-motion: reduce` freezes orbital and shader motion while
-preserving the complete composition. The CSS fallback keeps the central black
-hole legible when WebGL is unavailable.
+Every destination is a native button or link, the HTML system index remains
+visible above the decorative canvas, and touch targets are at least 44 pixels
+square. `prefers-reduced-motion: reduce` freezes orbital, shader, halo,
+star-field, camera, and surfacing motion while preserving the complete
+composition. The borderless founder image is masked into the surrounding
+atmosphere rather than presented as a card.

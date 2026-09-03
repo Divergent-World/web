@@ -18,14 +18,14 @@ export default function CelestialBody({
   onSelect,
   register,
 }: Props) {
-  const select = (event: ThreeEvent<MouseEvent>) => {
+  const select = (event: ThreeEvent<PointerEvent>) => {
     event.stopPropagation()
     onSelect(entry.id)
   }
 
   return (
     <group ref={(node) => register(entry.id, node)}>
-      <mesh onClick={select}>
+      <mesh onPointerDown={select}>
         <sphereGeometry args={[0.42, 24, 16]} />
         <meshBasicMaterial color={entry.accent} toneMapped={false} />
       </mesh>
@@ -42,7 +42,7 @@ export default function CelestialBody({
         />
       </mesh>
 
-      <mesh onClick={select}>
+      <mesh onPointerDown={select}>
         <sphereGeometry args={[1.35, 12, 8]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
