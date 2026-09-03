@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         url: assetUrl('opengraph.png'),
         width: 1200,
         height: 630,
-        alt: 'Divergent World — a black hole with a single world in orbit.',
+        alt: 'Divergent World — technology, media, and design orbiting one institution.',
       },
     ],
   },

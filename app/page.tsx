@@ -1,10 +1,7 @@
-import type { CSSProperties } from 'react'
-import { publishedWorlds } from '@/lib/worlds'
+import Image from 'next/image'
+import { PUBLIC_NAVIGATION } from '@/lib/navigation'
+import UniverseExperience from './components/UniverseExperience'
 import styles from './page.module.css'
-
-/* Empty paths, sized as a percentage of the stage. They carry no data — they
-   are the room the universe still has to grow into. */
-const EMPTY_ORBITS = [44, 88, 100]
 
 export default function Home() {
   return (
@@ -15,71 +12,63 @@ export default function Home() {
         <div className={`${styles.starLayer} ${styles.starsBright}`} />
       </div>
 
-      <header className={styles.masthead}>
-        <h1 className={styles.wordmark}>Divergent.World</h1>
-        <p className={styles.intro}>
-          A constellation of worlds, stories, and revelations.
-        </p>
+      <header className={styles.siteHeader}>
+        <a className={styles.wordmark} href="#universe">
+          Divergent.World
+        </a>
+        <nav aria-label="Primary navigation">
+          {PUBLIC_NAVIGATION.map(({ label, href, external }) => (
+            <a href={href} key={href}>
+              {label}
+              {external ? ' ↗' : ''}
+            </a>
+          ))}
+        </nav>
       </header>
 
-      <main className={styles.main}>
-        <div className={styles.stage}>
-          <div aria-hidden="true">
-            {EMPTY_ORBITS.map((size) => (
-              <span
-                key={size}
-                className={
-                  size === 100 ? `${styles.ring} ${styles.ringFaint}` : styles.ring
-                }
-                style={{ '--ring-size': `${size}%` } as CSSProperties}
-              />
-            ))}
-            <span className={styles.halo} />
-            <span className={styles.discOuter} />
-            <span className={styles.disc} />
-            <span className={styles.horizon} />
-          </div>
+      <main>
+        <UniverseExperience />
 
-          {publishedWorlds.map((world) => (
-            <div
-              key={world.id}
-              className={styles.orbit}
-              style={
-                {
-                  '--orbit-radius': `${world.orbit.radius}%`,
-                  '--orbit-duration': `${world.orbit.duration}s`,
-                  '--orbit-start': `${world.orbit.startAngle}deg`,
-                  '--accent': world.accent,
-                } as CSSProperties
-              }
-            >
-              <a
-                className={styles.world}
-                href={world.href}
-                aria-label={`Enter ${world.name}`}
-                aria-describedby={`${world.id}-description`}
-              >
-                <span className={styles.body} aria-hidden="true" />
-                <span className={styles.label}>
-                  <span className={styles.name}>{world.name}</span>
-                  <span className={styles.action}>
-                    Enter {world.name}
-                    <span className={styles.arrow} aria-hidden="true">
-                      →
-                    </span>
-                  </span>
-                </span>
-                <span id={`${world.id}-description`} className="srOnly">
-                  {world.description}
-                </span>
-              </a>
-            </div>
-          ))}
-        </div>
+        <section
+          id="about"
+          className={styles.founder}
+          aria-labelledby="founder-title"
+        >
+          <div className={styles.founderVisual}>
+            <Image
+              src="/images/ali-rahman.png"
+              alt="Ali Rahman, founder of Divergent World."
+              width={1024}
+              height={1024}
+              sizes="(min-width: 60rem) 58vw, 100vw"
+              className={styles.founderImage}
+            />
+          </div>
+          <div className={styles.founderCopy}>
+            <p>The founder</p>
+            <h2 id="founder-title">Founded by Ali Rahman.</h2>
+            <p>
+              Ali founded Divergent World to build one enduring institution
+              across technology, media, and design—in service of human
+              potential.
+            </p>
+          </div>
+        </section>
       </main>
 
       <footer className={styles.footer}>
-        <p>Divergent World</p>
+        <div className={styles.footerIdentity}>
+          <p>Divergent World</p>
+          <p>One mission · Infinite time horizon</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          {PUBLIC_NAVIGATION.map(({ label, href, external }) => (
+            <a href={href} key={href}>
+              {label}
+              {external ? ' ↗' : ''}
+            </a>
+          ))}
+        </nav>
       </footer>
     </div>
   )
