@@ -43,10 +43,8 @@ test('defines true 3D orbital data without interaction state', () => {
   for (const division of DIVISIONS) {
     assert.deepEqual(Object.keys(division.orbit ?? {}).sort(), [
       'distance',
-      'duration',
       'inclination',
       'period',
-      'radius',
       'startAngle',
     ])
     assert.equal('paused' in (division.orbit ?? {}), false)

@@ -9,6 +9,7 @@ import type {
 } from '../../../lib/universe'
 import { BlackHole } from '../black-hole/BlackHole'
 import { BLACK_HOLE_RENDER_PROFILE } from '../black-hole/render-profile'
+import styles from '../../page.module.css'
 import CameraRig from './CameraRig'
 import CelestialBody from './CelestialBody'
 import {
@@ -203,7 +204,7 @@ export default function UniverseScene(props: UniverseSceneProps) {
 
   return (
     <Canvas
-      className="universeCanvas"
+      className={styles.universeCanvas}
       aria-hidden="true"
       dpr={[1, BLACK_HOLE_RENDER_PROFILE.maxDpr]}
       frameloop={visible ? 'always' : 'never'}

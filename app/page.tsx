@@ -11,25 +11,25 @@ export default function Home() {
         <div className={`${styles.starLayer} ${styles.starsBright}`} />
       </div>
 
-      <header className={styles.hero}>
-        <p className={styles.wordmark}>Divergent.World</p>
-        <div className={styles.heroStatement}>
-          <p className={styles.eyebrow}>Technology · Media · Design</p>
-          <h1>Build what makes us more human.</h1>
-          <p>
-            Divergent World is an enduring institution creating technologies,
-            stories, and products that increase human potential.
-          </p>
-        </div>
-        <a className={styles.skipLink} href="#universe-title">
-          Explore the world ↓
+      <header className={styles.siteHeader}>
+        <a className={styles.wordmark} href="#universe">
+          Divergent.World
         </a>
+        <nav aria-label="Primary navigation">
+          <a href="#universe">Universe</a>
+          <a href="#about">About</a>
+          <a href="https://revelation.divergent.world">Revelation ↗</a>
+        </nav>
       </header>
 
       <main>
         <UniverseExperience />
 
-        <section className={styles.founder} aria-labelledby="founder-title">
+        <section
+          id="about"
+          className={styles.founder}
+          aria-labelledby="founder-title"
+        >
           <div className={styles.founderImageFrame}>
             <Image
               src="/images/ali-rahman.png"

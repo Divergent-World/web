@@ -46,6 +46,7 @@ export default function CameraRig({
   const flight = useRef<Flight | null>(null)
   const tracking = useRef<Tracking | null>(null)
   const previousResetSignal = useRef(resetSignal)
+  const previousSelectedId = useRef(selectedId)
 
   useEffect(() => {
     const nextControls = new OrbitControls(camera, gl.domElement)
@@ -75,6 +76,9 @@ export default function CameraRig({
   }, [camera, gl])
 
   useEffect(() => {
+    if (previousSelectedId.current === selectedId) return
+    previousSelectedId.current = selectedId
+
     const activeControls = controls.current
     if (!activeControls) return
 

@@ -1,7 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import {
   DIVERGENT_WORLD,
   DIVISIONS,
@@ -9,9 +9,11 @@ import {
   type UniverseEntryId,
 } from '@/lib/universe'
 import styles from '../page.module.css'
+import UniverseErrorBoundary from './universe/UniverseErrorBoundary'
+import { reduceUniverseSelection } from './universe/selection-model'
 
-const BlackHoleCanvas = dynamic(
-  () => import('./black-hole/BlackHoleCanvas'),
+const UniverseScene = dynamic(
+  () => import('./universe/UniverseScene'),
   {
     ssr: false,
     loading: () => null,
@@ -19,9 +21,13 @@ const BlackHoleCanvas = dynamic(
 )
 
 export default function UniverseExperience() {
-  const [selectedId, setSelectedId] = useState<UniverseEntryId>('world')
+  const [{ selectedId, resetSignal }, dispatch] = useReducer(
+    reduceUniverseSelection,
+    { selectedId: 'world', resetSignal: 0 },
+  )
   const [reducedMotion, setReducedMotion] = useState(false)
   const selected = getUniverseEntry(selectedId)
+  const select = useCallback((id: UniverseEntryId) => dispatch(id), [])
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -33,86 +39,66 @@ export default function UniverseExperience() {
 
   return (
     <section
+      id="universe"
       className={styles.universeSection}
-      aria-labelledby="universe-title"
+      aria-label="Divergent World universe"
     >
-      <div className={styles.universeCopy}>
-        <p className={styles.eyebrow}>One mission · Three active branches</p>
-        <h2 id="universe-title">A world built to compound.</h2>
-        <p>Choose a point in the system to see what it creates.</p>
+      <div className={styles.cssUniverseFallback} aria-hidden="true" />
+      <UniverseErrorBoundary fallback={null}>
+        <UniverseScene
+          entries={DIVISIONS}
+          selectedId={selectedId}
+          resetSignal={resetSignal}
+          reducedMotion={reducedMotion}
+          onSelect={select}
+        />
+      </UniverseErrorBoundary>
+
+      <div className={styles.sceneIntro}>
+        <p>Divergent World · Technology · Media · Design</p>
+        <h1>Build what makes us more human.</h1>
+        <p>Drag to orbit · Pinch or scroll to move through the system</p>
       </div>
 
-      <div className={styles.universeLayout}>
-        <div className={styles.stage}>
-          <div className={styles.cssBlackHole} aria-hidden="true" />
-          <div className={styles.canvasLayer} aria-hidden="true">
-            <BlackHoleCanvas reducedMotion={reducedMotion} />
-          </div>
-
+      <nav
+        className={styles.systemIndex}
+        aria-label="Explore the Divergent World system"
+      >
+        {[DIVERGENT_WORLD, ...DIVISIONS].map((entry) => (
           <button
+            key={entry.id}
             type="button"
-            className={styles.worldControl}
-            aria-label="Show Divergent World overview"
-            aria-controls="universe-detail"
-            aria-expanded={selectedId === 'world'}
-            onClick={() => setSelectedId(DIVERGENT_WORLD.id)}
+            aria-controls="universe-annotation"
+            aria-pressed={selectedId === entry.id}
+            onClick={() => select(entry.id)}
           >
-            <span>Divergent World</span>
+            <span
+              aria-hidden="true"
+              style={{ background: entry.accent }}
+            />
+            {entry.name.replace('Divergent ', '')}
           </button>
+        ))}
+      </nav>
 
-          {DIVISIONS.map((division) => (
-            <div
-              className={styles.orbit}
-              data-selected={selectedId === division.id}
-              key={division.id}
-              style={
-                {
-                  '--orbit-radius': `${division.orbit?.radius}%`,
-                  '--orbit-duration': `${division.orbit?.duration}s`,
-                  '--orbit-start': `${division.orbit?.startAngle}deg`,
-                  '--accent': division.accent,
-                } as CSSProperties
-              }
-            >
-              <button
-                type="button"
-                className={styles.divisionControl}
-                aria-controls="universe-detail"
-                aria-expanded={selectedId === division.id}
-                onClick={() => setSelectedId(division.id)}
-              >
-                <span className={styles.star} aria-hidden="true" />
-                <span className={styles.divisionLabel}>{division.name}</span>
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <article
-          id="universe-detail"
-          className={styles.detailPanel}
-          aria-live="polite"
-        >
-          <p className={styles.eyebrow} role="status">
+      <article
+        id="universe-annotation"
+        className={styles.annotation}
+        aria-live="polite"
+      >
+        <div className={styles.annotationSurface} key={selected.id}>
+          <p>
             {selected.role} · {selected.status}
           </p>
-          <h3>{selected.name}</h3>
-          <p className={styles.mission}>{selected.mission}</p>
-          <p>{selected.description}</p>
+          <h2>{selected.name}</h2>
+          <p>{selected.mission}</p>
           {selected.projects.map((project) => (
-            <a
-              className={styles.portalLink}
-              href={project.href}
-              key={project.href}
-            >
-              <span>{project.description}</span>
-              <span>
-                Enter {project.name} <span aria-hidden="true">↗</span>
-              </span>
+            <a href={project.href} key={project.href}>
+              Enter {project.name} ↗
             </a>
           ))}
-        </article>
-      </div>
+        </div>
+      </article>
     </section>
   )
 }

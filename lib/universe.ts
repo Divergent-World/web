@@ -19,8 +19,6 @@ export type UniverseEntry = {
     period: number
     inclination: number
     startAngle: number
-    radius: number
-    duration: number
   }
   projects: readonly UniverseProject[]
 }
@@ -52,8 +50,6 @@ export const DIVISIONS: readonly UniverseEntry[] = [
       period: 96,
       inclination: 8,
       startAngle: 304,
-      radius: 36,
-      duration: 96,
     },
     projects: [],
   },
@@ -71,8 +67,6 @@ export const DIVISIONS: readonly UniverseEntry[] = [
       period: 132,
       inclination: -11,
       startAngle: 112,
-      radius: 58,
-      duration: 132,
     },
     projects: [
       {
@@ -96,8 +90,6 @@ export const DIVISIONS: readonly UniverseEntry[] = [
       period: 174,
       inclination: 17,
       startAngle: 226,
-      radius: 80,
-      duration: 174,
     },
     projects: [],
   },
