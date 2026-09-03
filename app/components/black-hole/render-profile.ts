@@ -1,6 +1,7 @@
 export const BLACK_HOLE_RENDER_PROFILE = Object.freeze({
   maxDpr: 1.35,
   visibleMeshCount: 5,
+  visibleObjectCount: 6,
   eventHorizon: Object.freeze({
     radius: 2.7,
     widthSegments: 48,
@@ -9,6 +10,7 @@ export const BLACK_HOLE_RENDER_PROFILE = Object.freeze({
   hotDisk: Object.freeze({
     innerRadius: 2.88,
     outerRadius: 5.1,
+    fadeStart: 4.6,
     angularSegments: 160,
     radialSegments: 7,
     period: 36,
@@ -18,6 +20,7 @@ export const BLACK_HOLE_RENDER_PROFILE = Object.freeze({
   dustDisk: Object.freeze({
     innerRadius: 3.85,
     outerRadius: 7.7,
+    fadeStart: 7,
     angularSegments: 160,
     radialSegments: 7,
     period: 74,
@@ -35,6 +38,12 @@ export const BLACK_HOLE_RENDER_PROFILE = Object.freeze({
     outerRadius: 7.7,
     angularSegments: 96,
     opacity: 0.08,
+  }),
+  halo: Object.freeze({
+    innerRadius: 7.5,
+    outerRadius: 17.5,
+    size: 0.12,
+    opacity: 0.5,
   }),
   doppler: Object.freeze({ minimum: 0.52, maximum: 1.62 }),
   palette: Object.freeze({

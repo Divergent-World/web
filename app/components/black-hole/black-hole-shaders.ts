@@ -25,6 +25,7 @@ export const ACCRETION_FRAGMENT_SHADER = `
   uniform float uReducedMotion;
   uniform float uInnerRadius;
   uniform float uOuterRadius;
+  uniform float uFadeStart;
   uniform float uLayer;
   uniform float uMotionRate;
   uniform float uDopplerMinimum;
@@ -70,6 +71,9 @@ export const ACCRETION_FRAGMENT_SHADER = `
   void main() {
     vec2 point = vLocalPosition.xy;
     float radius = length(point);
+    float innerFade = smoothstep(uInnerRadius, uInnerRadius + 0.42, radius);
+    float outerFade = 1.0 - smoothstep(uFadeStart, uOuterRadius, radius);
+    float radialAlpha = innerFade * outerFade;
     float radial = clamp(
       (radius - uInnerRadius) / (uOuterRadius - uInnerRadius),
       0.0,
@@ -137,7 +141,7 @@ export const ACCRETION_FRAGMENT_SHADER = `
       (1.0 - smoothstep(0.0, 0.08, radial));
     color = mix(color, uRimColor, chromatic * 0.16);
     float layerOpacity = mix(0.92, 0.48, uLayer);
-    float alpha = density * layerOpacity;
+    float alpha = density * layerOpacity * radialAlpha;
     if (alpha < 0.018) discard;
     gl_FragColor = vec4(color, alpha);
   }
