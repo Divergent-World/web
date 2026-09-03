@@ -8,6 +8,7 @@ import {
   getCameraDestination,
   getCameraFlightProgress,
   getParticleCount,
+  getTrackingTranslation,
 } from '../app/components/universe/scene-model.ts'
 
 test('places the camera relative to the selected body', () => {
@@ -46,4 +47,11 @@ test('creates deterministic halo positions inside the intended shell', () => {
 test('advances orbital motion unless reduced motion is requested', () => {
   assert.ok(advanceOrbitPhase(Math.PI, 1, 120, false) > Math.PI)
   assert.equal(advanceOrbitPhase(Math.PI, 1, 120, true), Math.PI)
+})
+
+test('tracking translation preserves the camera offset from a moving target', () => {
+  assert.deepEqual(
+    getTrackingTranslation([1, 2, 3], [4, 6, 8]),
+    [3, 4, 5],
+  )
 })

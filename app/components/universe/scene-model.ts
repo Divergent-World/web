@@ -90,3 +90,12 @@ export function advanceOrbitPhase(
   const boundedDelta = Math.min(Math.max(deltaSeconds, 0), 0.1)
   return phase + (boundedDelta * Math.PI * 2) / periodSeconds
 }
+
+export function getTrackingTranslation(
+  previousTarget: readonly [number, number, number],
+  nextTarget: readonly [number, number, number],
+) {
+  return nextTarget.map(
+    (value, index) => value - previousTarget[index],
+  ) as Vector3Tuple
+}
