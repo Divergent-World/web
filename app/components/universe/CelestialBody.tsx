@@ -6,6 +6,7 @@ import type {
   UniverseEntry,
   UniverseEntryId,
 } from '../../../lib/universe'
+import { shouldSelectFromPointerRelease } from './scene-model'
 
 type Props = {
   entry: UniverseEntry
@@ -18,14 +19,15 @@ export default function CelestialBody({
   onSelect,
   register,
 }: Props) {
-  const select = (event: ThreeEvent<PointerEvent>) => {
+  const select = (event: ThreeEvent<MouseEvent>) => {
+    if (!shouldSelectFromPointerRelease(event.delta)) return
     event.stopPropagation()
     onSelect(entry.id)
   }
 
   return (
     <group ref={(node) => register(entry.id, node)}>
-      <mesh onPointerDown={select}>
+      <mesh onClick={select}>
         <sphereGeometry args={[0.42, 24, 16]} />
         <meshBasicMaterial color={entry.accent} toneMapped={false} />
       </mesh>
@@ -42,7 +44,7 @@ export default function CelestialBody({
         />
       </mesh>
 
-      <mesh onPointerDown={select}>
+      <mesh onClick={select}>
         <sphereGeometry args={[1.35, 12, 8]} />
         <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>

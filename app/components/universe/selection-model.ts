@@ -2,7 +2,7 @@ import type { UniverseEntryId } from '../../../lib/universe'
 
 export type UniverseSelection = {
   selectedId: UniverseEntryId
-  resetSignal: number
+  focusSignal: number
 }
 
 export function reduceUniverseSelection(
@@ -11,6 +11,6 @@ export function reduceUniverseSelection(
 ): UniverseSelection {
   return {
     selectedId,
-    resetSignal: state.resetSignal + Number(selectedId === 'world'),
+    focusSignal: state.focusSignal + 1,
   }
 }

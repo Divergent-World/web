@@ -5,19 +5,19 @@ import { reduceUniverseSelection } from '../app/components/universe/selection-mo
 test('branch selection changes the entry without pausing orbital state', () => {
   assert.deepEqual(
     reduceUniverseSelection(
-      { selectedId: 'world', resetSignal: 0 },
+      { selectedId: 'world', focusSignal: 0 },
       'media',
     ),
-    { selectedId: 'media', resetSignal: 0 },
+    { selectedId: 'media', focusSignal: 1 },
   )
 })
 
-test('world selection increments the camera reset signal', () => {
+test('every activation emits a camera focus signal', () => {
   assert.deepEqual(
     reduceUniverseSelection(
-      { selectedId: 'design', resetSignal: 2 },
-      'world',
+      { selectedId: 'design', focusSignal: 2 },
+      'design',
     ),
-    { selectedId: 'world', resetSignal: 3 },
+    { selectedId: 'design', focusSignal: 3 },
   )
 })

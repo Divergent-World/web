@@ -18,6 +18,7 @@ test('hands wheel input to the page only at the outer camera boundary', () => {
   const detach = attachPageScrollHandoff(
     canvas,
     () => cameraDistance,
+    9,
     64,
   )
 
@@ -39,4 +40,29 @@ test('hands wheel input to the page only at the outer camera boundary', () => {
   detach()
   canvas.dispatchEvent(new TestWheelEvent(120))
   assert.equal(orbitControlEvents, 2)
+})
+
+test('hands upward wheel input back at the inner camera boundary', () => {
+  const canvas = new EventTarget()
+  let cameraDistance = 10
+  let orbitControlEvents = 0
+  const detach = attachPageScrollHandoff(
+    canvas,
+    () => cameraDistance,
+    9,
+    64,
+  )
+
+  canvas.addEventListener('wheel', () => {
+    orbitControlEvents += 1
+  })
+
+  canvas.dispatchEvent(new TestWheelEvent(-120))
+  assert.equal(orbitControlEvents, 1)
+
+  cameraDistance = 9
+  canvas.dispatchEvent(new TestWheelEvent(-120))
+  assert.equal(orbitControlEvents, 1)
+
+  detach()
 })

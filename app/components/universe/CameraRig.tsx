@@ -15,7 +15,7 @@ import { attachPageScrollHandoff } from './wheel-handoff'
 
 type Props = {
   selectedId: UniverseEntryId
-  resetSignal: number
+  focusSignal: number
   reducedMotion: boolean
   objectRegistry: React.RefObject<Map<UniverseEntryId, THREE.Object3D>>
 }
@@ -38,7 +38,7 @@ const desiredTarget = new THREE.Vector3()
 
 export default function CameraRig({
   selectedId,
-  resetSignal,
+  focusSignal,
   reducedMotion,
   objectRegistry,
 }: Props) {
@@ -46,8 +46,7 @@ export default function CameraRig({
   const controls = useRef<OrbitControls | null>(null)
   const flight = useRef<Flight | null>(null)
   const tracking = useRef<Tracking | null>(null)
-  const previousResetSignal = useRef(resetSignal)
-  const previousSelectedId = useRef(selectedId)
+  const previousFocusSignal = useRef(focusSignal)
 
   useEffect(() => {
     const nextControls = new OrbitControls(camera, gl.domElement)
@@ -70,6 +69,7 @@ export default function CameraRig({
     const detachPageScrollHandoff = attachPageScrollHandoff(
       gl.domElement,
       () => camera.position.distanceTo(nextControls.target),
+      nextControls.minDistance,
       nextControls.maxDistance,
     )
     controls.current = nextControls
@@ -83,36 +83,20 @@ export default function CameraRig({
   }, [camera, gl])
 
   useEffect(() => {
-    if (previousSelectedId.current === selectedId) return
-    previousSelectedId.current = selectedId
+    if (previousFocusSignal.current === focusSignal) return
+    previousFocusSignal.current = focusSignal
 
     const activeControls = controls.current
     if (!activeControls) return
 
     tracking.current = null
     flight.current = {
-      id: selectedId,
+      id: selectedId === 'world' ? null : selectedId,
       elapsed: 0,
       fromPosition: camera.position.clone(),
       fromTarget: activeControls.target.clone(),
     }
-  }, [camera, selectedId])
-
-  useEffect(() => {
-    if (previousResetSignal.current === resetSignal) return
-    previousResetSignal.current = resetSignal
-
-    const activeControls = controls.current
-    if (!activeControls) return
-
-    tracking.current = null
-    flight.current = {
-      id: null,
-      elapsed: 0,
-      fromPosition: camera.position.clone(),
-      fromTarget: activeControls.target.clone(),
-    }
-  }, [camera, resetSignal])
+  }, [camera, focusSignal, selectedId])
 
   useFrame((_, delta) => {
     const activeControls = controls.current

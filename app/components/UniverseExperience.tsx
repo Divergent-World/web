@@ -27,9 +27,9 @@ const UniverseScene = dynamic(
 )
 
 export default function UniverseExperience() {
-  const [{ selectedId, resetSignal }, dispatch] = useReducer(
+  const [{ selectedId, focusSignal }, dispatch] = useReducer(
     reduceUniverseSelection,
-    { selectedId: 'world', resetSignal: 0 },
+    { selectedId: 'world', focusSignal: 0 },
   )
   const [reducedMotion, setReducedMotion] = useState(false)
   const [sceneInView, setSceneInView] = useState(true)
@@ -69,7 +69,7 @@ export default function UniverseExperience() {
         <UniverseScene
           entries={DIVISIONS}
           selectedId={selectedId}
-          resetSignal={resetSignal}
+          focusSignal={focusSignal}
           reducedMotion={reducedMotion}
           active={sceneInView}
           onSelect={select}

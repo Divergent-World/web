@@ -3,6 +3,7 @@ import { shouldReleasePageScroll } from './scene-model.ts'
 export function attachPageScrollHandoff(
   element: EventTarget,
   getCameraDistance: () => number,
+  minDistance: number,
   maxDistance: number,
 ) {
   const releasePageScroll = (event: Event) => {
@@ -10,6 +11,7 @@ export function attachPageScrollHandoff(
     if (
       shouldReleasePageScroll(
         getCameraDistance(),
+        minDistance,
         maxDistance,
         wheelEvent.deltaY,
       )

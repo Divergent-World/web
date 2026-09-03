@@ -10,6 +10,7 @@ import {
   getParticleCount,
   getTrackingTranslation,
   shouldReleasePageScroll,
+  shouldSelectFromPointerRelease,
 } from '../app/components/universe/scene-model.ts'
 
 test('places the camera relative to the selected body', () => {
@@ -57,8 +58,15 @@ test('tracking translation preserves the camera offset from a moving target', ()
   )
 })
 
-test('releases downward wheel motion only at the camera boundary', () => {
-  assert.equal(shouldReleasePageScroll(64, 64, 120), true)
-  assert.equal(shouldReleasePageScroll(63.6, 64, 120), false)
-  assert.equal(shouldReleasePageScroll(64, 64, -120), false)
+test('releases wheel motion only at the matching camera boundary', () => {
+  assert.equal(shouldReleasePageScroll(64, 9, 64, 120), true)
+  assert.equal(shouldReleasePageScroll(63.6, 9, 64, 120), false)
+  assert.equal(shouldReleasePageScroll(9, 9, 64, -120), true)
+  assert.equal(shouldReleasePageScroll(9.4, 9, 64, -120), false)
+})
+
+test('treats a short pointer release as selection rather than a drag', () => {
+  assert.equal(shouldSelectFromPointerRelease(0), true)
+  assert.equal(shouldSelectFromPointerRelease(4), true)
+  assert.equal(shouldSelectFromPointerRelease(4.01), false)
 })

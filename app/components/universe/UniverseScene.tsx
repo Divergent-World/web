@@ -16,12 +16,13 @@ import {
   OVERVIEW_CAMERA,
   advanceOrbitPhase,
   createSeededHaloPositions,
+  shouldSelectFromPointerRelease,
 } from './scene-model'
 
 export type UniverseSceneProps = {
   entries: readonly UniverseEntry[]
   selectedId: UniverseEntryId
-  resetSignal: number
+  focusSignal: number
   reducedMotion: boolean
   active: boolean
   onSelect: (id: UniverseEntryId) => void
@@ -144,7 +145,7 @@ type SceneContentsProps = Omit<UniverseSceneProps, 'active'> & {
 function SceneContents({
   entries,
   selectedId,
-  resetSignal,
+  focusSignal,
   reducedMotion,
   onSelect,
   objectRegistry,
@@ -157,7 +158,8 @@ function SceneContents({
     else objectRegistry.current.delete(id)
   }
 
-  const selectWorld = (event: ThreeEvent<PointerEvent>) => {
+  const selectWorld = (event: ThreeEvent<MouseEvent>) => {
+    if (!shouldSelectFromPointerRelease(event.delta)) return
     event.stopPropagation()
     onSelect('world')
   }
@@ -167,7 +169,7 @@ function SceneContents({
       <BackgroundStars />
       <group ref={(node) => registerObject('world', node)}>
         <BlackHole reducedMotion={reducedMotion} />
-        <mesh name="black-hole-hit-target" onPointerDown={selectWorld}>
+        <mesh name="black-hole-hit-target" onClick={selectWorld}>
           <sphereGeometry args={[4.6, 16, 12]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
@@ -187,7 +189,7 @@ function SceneContents({
 
       <CameraRig
         selectedId={selectedId}
-        resetSignal={resetSignal}
+        focusSignal={focusSignal}
         reducedMotion={reducedMotion}
         objectRegistry={objectRegistry}
       />

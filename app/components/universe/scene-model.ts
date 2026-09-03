@@ -102,8 +102,15 @@ export function getTrackingTranslation(
 
 export function shouldReleasePageScroll(
   cameraDistance: number,
+  minDistance: number,
   maxDistance: number,
   wheelDeltaY: number,
 ) {
-  return wheelDeltaY > 0 && cameraDistance >= maxDistance - 0.25
+  if (wheelDeltaY > 0) return cameraDistance >= maxDistance - 0.25
+  if (wheelDeltaY < 0) return cameraDistance <= minDistance + 0.25
+  return false
+}
+
+export function shouldSelectFromPointerRelease(pointerTravel: number) {
+  return pointerTravel <= 4
 }
