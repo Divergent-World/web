@@ -4,7 +4,7 @@ export const SITE_URL = 'https://divergent.world'
 export const SITE_NAME = 'Divergent World'
 
 export const SITE_DESCRIPTION =
-  'A constellation of worlds, stories, and revelations.'
+  'Divergent World builds technologies, media, and products that increase human potential.'
 
 /**
  * Public Cloudflare R2 origin. The bucket is shared across projects and

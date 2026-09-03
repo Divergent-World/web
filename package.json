@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Divergent.World — the portal for a growing universe of creative works.",
+  "description": "Divergent World builds technologies, media, and products that increase human potential.",
   "license": "UNLICENSED",
   "scripts": {
     "dev": "next dev",

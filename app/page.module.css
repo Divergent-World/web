@@ -1,38 +1,34 @@
-/* The cosmic index. Composition is CSS-only: no canvas, no WebGL, no
-   client-side JavaScript. Motion is limited to `transform` and `opacity`
-   so the whole scene stays on the compositor. */
-
 .page {
+  --ink: #080706;
+  --stone: #b7a68f;
+  --ivory: #f3eadc;
+  --bronze: #b98550;
+  --oxblood: #682827;
+  --line: rgba(243, 234, 220, 0.16);
   position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: clamp(1.5rem, 4vh, 2.75rem);
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: clamp(1.75rem, 5vw, 3.5rem) clamp(1.25rem, 5vw, 3.5rem);
-  text-align: center;
+  isolation: isolate;
+  overflow-x: clip;
+  background: transparent;
+  color: var(--ivory);
 }
-
-/* ---------------------------------------------------------------- backdrop */
 
 .sky {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  /* Two enormous, near-invisible clouds keep the black from reading flat. */
   background:
     radial-gradient(
-      60% 45% at 18% 12%,
-      rgba(74, 62, 126, 0.16) 0%,
-      rgba(0, 0, 0, 0) 100%
+      70% 50% at 50% -10%,
+      rgba(185, 133, 80, 0.2),
+      transparent 75%
     ),
     radial-gradient(
-      55% 40% at 84% 88%,
-      rgba(96, 64, 58, 0.14) 0%,
-      rgba(0, 0, 0, 0) 100%
-    );
+      45% 40% at 5% 70%,
+      rgba(104, 40, 39, 0.14),
+      transparent 80%
+    ),
+    #080706;
 }
 
 .starLayer {
@@ -48,361 +44,481 @@
 
 .starsDrift {
   background-image: var(--stars-drift);
-  animation: breathe 11s ease-in-out infinite alternate;
+  animation: breathe 13s ease-in-out infinite alternate;
 }
 
 .starsBright {
   background-image: var(--stars-bright);
-  animation: breathe 17s ease-in-out 3s infinite alternate-reverse;
+  animation: breathe 19s ease-in-out 2s infinite alternate-reverse;
 }
 
-/* ------------------------------------------------------------------- type */
+.hero,
+.page > main,
+.footer {
+  position: relative;
+  z-index: 1;
+}
 
-.masthead {
+.hero {
   display: grid;
-  gap: clamp(0.5rem, 1.6vh, 0.9rem);
-  justify-items: center;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding:
+    max(1.5rem, env(safe-area-inset-top))
+    clamp(1.25rem, 5vw, 5rem)
+    max(2rem, env(safe-area-inset-bottom));
 }
 
 .wordmark {
   margin: 0;
-  font-size: clamp(0.95rem, 0.72rem + 1.15vw, 1.5rem);
-  font-weight: 400;
-  line-height: 1.2;
+  font-size: clamp(0.8rem, 0.72rem + 0.3vw, 1rem);
   letter-spacing: 0.34em;
-  /* Authored in title case so it is spoken, not spelled, by screen readers. */
   text-transform: uppercase;
-  text-indent: 0.34em;
-  color: var(--text);
 }
 
-.intro {
-  max-width: 34ch;
+.heroStatement {
+  align-self: center;
+  max-width: 70rem;
+  padding-block: 5rem;
+}
+
+.heroStatement h1,
+.universeCopy h2,
+.detailPanel h3,
+.founderCopy h2 {
+  margin: 0;
   font-family: var(--font-serif);
-  font-size: clamp(0.95rem, 0.86rem + 0.42vw, 1.2rem);
-  font-style: italic;
-  line-height: 1.55;
-  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: -0.035em;
   text-wrap: balance;
 }
 
-.main {
-  display: grid;
-  place-items: center;
-  min-height: 0;
+.heroStatement h1 {
+  max-width: 11ch;
+  font-size: clamp(3.4rem, 9vw, 9.5rem);
+  line-height: 0.89;
 }
 
-.footer {
-  font-size: 0.72rem;
-  letter-spacing: 0.24em;
+.heroStatement > p:last-child {
+  max-width: 42rem;
+  margin-top: 2rem;
+  color: rgba(243, 234, 220, 0.7);
+  font-size: clamp(1rem, 1.2vw, 1.25rem);
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--bronze);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  text-indent: 0.24em;
-  color: var(--text-dim);
 }
 
-/* ------------------------------------------------------------------ stage */
+.skipLink {
+  justify-self: start;
+  min-height: 44px;
+  color: rgba(243, 234, 220, 0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.universeSection {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(5rem, 9vw, 9rem) clamp(1.25rem, 5vw, 5rem);
+  scroll-margin-top: 1rem;
+  border-block: 1px solid var(--line);
+  background:
+    radial-gradient(
+      circle at 38% 50%,
+      rgba(104, 70, 51, 0.18),
+      transparent 38%
+    ),
+    rgba(3, 3, 3, 0.64);
+}
+
+.universeCopy {
+  width: min(100%, 90rem);
+  margin: 0 auto clamp(2.5rem, 5vw, 5rem);
+}
+
+.universeCopy h2 {
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  line-height: 0.95;
+}
+
+.universeCopy > p:last-child {
+  max-width: 34rem;
+  margin: 1rem 0 0;
+  color: rgba(243, 234, 220, 0.62);
+}
+
+.universeLayout,
+.founder {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 0.8fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 6rem);
+}
+
+.universeLayout {
+  width: min(100%, 90rem);
+  margin-inline: auto;
+}
 
 .stage {
   position: relative;
-  --orbit-scale: 1;
-  /* Sized off the viewport so the scene always fits between the masthead and
-     the footer; the shorter the window, the smaller the share it takes. */
-  width: min(100%, var(--stage-height, 62svh), 720px);
+  width: min(100%, 50rem);
   aspect-ratio: 1;
+  margin-inline: auto;
 }
 
-/* Purely decorative geometry — hidden from assistive technology upstream. */
-.ring {
+.canvasLayer,
+.cssBlackHole {
   position: absolute;
-  inset: calc((100% - var(--ring-size)) / 2);
-  border: 1px solid var(--hairline);
+  pointer-events: none;
+}
+
+.cssBlackHole {
+  inset: 32%;
   border-radius: 50%;
-}
-
-.ringFaint {
-  border-color: rgba(255, 255, 255, 0.045);
-}
-
-.halo {
-  position: absolute;
-  inset: 6%;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    rgba(255, 172, 112, 0.15) 0%,
-    rgba(255, 140, 82, 0.06) 42%,
-    rgba(0, 0, 0, 0) 72%
+  background:
+    radial-gradient(circle, #000 0 24%, transparent 25%),
+    conic-gradient(
+      from 210deg,
+      #6b432f,
+      #f3dfbf,
+      #7b2e2b,
+      #b98550,
+      #6b432f
+    );
+  filter: blur(0.4px) drop-shadow(0 0 2rem rgba(185, 133, 80, 0.28));
+  -webkit-mask: radial-gradient(
+    circle,
+    transparent 0 24%,
+    #000 31% 44%,
+    transparent 62%
   );
-  animation: breathe 14s ease-in-out infinite alternate;
-}
-
-/* Accretion disc: a conic sweep masked into a ring, squashed a little so the
-   plane reads as tilted rather than as a flat coin. */
-.disc,
-.discOuter {
-  position: absolute;
-  border-radius: 50%;
-  -webkit-mask-image: radial-gradient(
-    closest-side,
-    rgba(0, 0, 0, 0) 58%,
-    rgba(0, 0, 0, 1) 70%,
-    rgba(0, 0, 0, 1) 88%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  mask-image: radial-gradient(
-    closest-side,
-    rgba(0, 0, 0, 0) 58%,
-    rgba(0, 0, 0, 1) 70%,
-    rgba(0, 0, 0, 1) 88%,
-    rgba(0, 0, 0, 0) 100%
+  mask: radial-gradient(
+    circle,
+    transparent 0 24%,
+    #000 31% 44%,
+    transparent 62%
   );
 }
 
-.disc {
-  inset: 33%;
-  background: conic-gradient(
-    from 0deg,
-    rgba(0, 0, 0, 0) 0deg,
-    var(--accretion-warm) 58deg,
-    var(--accretion-hot) 116deg,
-    var(--accretion-deep) 196deg,
-    var(--accretion-cool) 268deg,
-    rgba(0, 0, 0, 0) 348deg
-  );
-  scale: 1 0.86;
-  animation: revolve 96s linear infinite;
+.canvasLayer {
+  inset: 9%;
 }
 
-.discOuter {
-  inset: 27%;
-  opacity: 0.42;
-  background: conic-gradient(
-    from 210deg,
-    rgba(0, 0, 0, 0) 0deg,
-    var(--accretion-deep) 90deg,
-    var(--accretion-warm) 170deg,
-    rgba(0, 0, 0, 0) 300deg
-  );
-  scale: 1 0.8;
-  animation: revolve 168s linear infinite reverse;
+.canvasLayer > div {
+  width: 100% !important;
+  height: 100% !important;
 }
-
-/* Event horizon: genuinely black, ringed by the photon sphere. */
-.horizon {
-  position: absolute;
-  inset: 40.5%;
-  border-radius: 50%;
-  background: var(--void);
-  box-shadow:
-    0 0 0 1px rgba(255, 219, 184, 0.5),
-    0 0 16px 2px rgba(255, 180, 122, 0.3),
-    0 0 64px 12px rgba(255, 150, 92, 0.12);
-}
-
-/* ------------------------------------------------------------------ world */
 
 .orbit {
   position: absolute;
-  inset: calc((100% - var(--orbit-radius) * var(--orbit-scale, 1)) / 2);
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  inset: calc((100% - var(--orbit-radius)) / 2);
+  border: 1px solid var(--line);
   border-radius: 50%;
   rotate: var(--orbit-start);
-  animation: revolve var(--orbit-duration) linear infinite;
+  animation: orbit var(--orbit-duration) linear infinite;
 }
 
-/* The body counter-rotates about its own centre, so it travels the orbit
-   while its label stays upright. */
-.world {
+.divisionControl {
   position: absolute;
   top: 0;
   left: 50%;
   display: grid;
+  min-width: 44px;
+  min-height: 44px;
   place-items: center;
-  width: 48px;
-  height: 48px;
   translate: -50% -50%;
   rotate: calc(var(--orbit-start) * -1);
-  animation: counter-revolve var(--orbit-duration) linear infinite;
-  text-decoration: none;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ivory);
+  animation: counter-orbit var(--orbit-duration) linear infinite;
+  cursor: pointer;
 }
 
-/* Attending to a world settles it: hovering or focusing halts the orbit so
-   the target never drifts under the pointer. */
-.orbit:has(.world:hover),
-.orbit:has(.world:focus-visible),
-.orbit:has(.world:hover) .world,
-.orbit:has(.world:focus-visible) .world {
+.orbit[data-selected="true"],
+.orbit[data-selected="true"] .divisionControl,
+.orbit:has(.divisionControl:hover),
+.orbit:has(.divisionControl:hover) .divisionControl,
+.orbit:has(.divisionControl:focus-visible),
+.orbit:has(.divisionControl:focus-visible) .divisionControl {
   animation-play-state: paused;
 }
 
-.body {
-  width: 11px;
-  height: 11px;
+.star {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 0 1rem 0.25rem color-mix(in srgb, var(--accent) 48%, transparent);
+}
+
+.divisionLabel {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  width: max-content;
+  translate: -50% 0;
+  color: rgba(243, 234, 220, 0.82);
+  font-size: clamp(0.56rem, 1.4vw, 0.7rem);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.worldControl {
+  position: absolute;
+  inset: 40%;
+  z-index: 3;
+  display: grid;
+  min-width: 44px;
+  min-height: 44px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ivory);
+  cursor: pointer;
+}
+
+.worldControl span {
+  position: absolute;
+  top: calc(100% + 0.8rem);
+  left: 50%;
+  width: max-content;
+  translate: -50% 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.detailPanel {
+  position: relative;
+  min-height: 29rem;
+  padding: clamp(1.5rem, 3vw, 3rem);
+  border: 1px solid rgba(243, 234, 220, 0.18);
+  border-radius: 9rem 9rem 0.75rem 0.75rem / 2.25rem 2.25rem 0.75rem 0.75rem;
+  background:
+    linear-gradient(
+      150deg,
+      rgba(183, 166, 143, 0.13),
+      rgba(20, 15, 12, 0.92)
+    ),
+    #0f0c0a;
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.detailPanel::before {
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 auto clamp(2rem, 4vw, 4rem);
+  border: 1px solid rgba(243, 234, 220, 0.3);
   border-radius: 50%;
   background: radial-gradient(
-    circle at 38% 34%,
-    #ffffff 0%,
-    var(--accent) 58%,
-    color-mix(in srgb, var(--accent) 55%, transparent) 100%
+    circle,
+    rgba(243, 234, 220, 0.22),
+    transparent 68%
   );
-  box-shadow:
-    0 0 10px 1px color-mix(in srgb, var(--accent) 55%, transparent),
-    0 0 26px 6px color-mix(in srgb, var(--accent) 22%, transparent);
-  transition:
-    box-shadow 420ms ease,
-    scale 420ms ease;
+  content: "";
 }
 
-/* Label and action sit outside the flow, so revealing the action cannot
-   shift the composition. Both remain descendants of the anchor, and so
-   remain part of its hit area. */
-.label {
-  position: absolute;
-  top: calc(100% + 0.6rem);
-  left: 50%;
-  translate: -50% 0;
-  display: grid;
-  gap: 0.3rem;
-  justify-items: center;
-  white-space: nowrap;
+.detailPanel h3 {
+  font-size: clamp(2.25rem, 4vw, 4.25rem);
+  line-height: 0.95;
 }
 
-.name {
-  font-size: 0.78rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-indent: 0.2em;
-  color: var(--text-muted);
-  transition: color 320ms ease;
+.detailPanel > p:not(.eyebrow) {
+  color: rgba(243, 234, 220, 0.62);
 }
 
-.action {
+.mission {
+  margin: 1.5rem 0 0.75rem;
+  color: var(--ivory) !important;
   font-family: var(--font-serif);
-  font-size: 0.8rem;
-  font-style: italic;
-  letter-spacing: 0.01em;
-  color: var(--text-dim);
-  opacity: 0;
-  translate: 0 -3px;
-  transition:
-    opacity 320ms ease,
-    translate 320ms ease;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.35;
 }
 
-.arrow {
-  margin-left: 0.3em;
+.portalLink {
+  display: grid;
+  gap: 0.45rem;
+  min-height: 44px;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(104, 40, 39, 0.8);
+  color: var(--ivory);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-.world:hover .body,
-.world:focus-visible .body {
-  scale: 1.18;
-  box-shadow:
-    0 0 14px 2px color-mix(in srgb, var(--accent) 78%, transparent),
-    0 0 40px 10px color-mix(in srgb, var(--accent) 34%, transparent);
+.portalLink > span:first-child {
+  color: rgba(243, 234, 220, 0.55);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
-.world:hover .name,
-.world:focus-visible .name {
-  color: var(--text);
+.founder {
+  width: min(100% - 2.5rem, 90rem);
+  margin: clamp(5rem, 12vw, 11rem) auto;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(104, 40, 39, 0.45);
+  border-radius: 50% 50% 1rem 1rem / 10% 10% 1rem 1rem;
+  background: linear-gradient(145deg, #191411, #33271f 70%, #17110f);
 }
 
-.world:hover .action,
-.world:focus-visible .action {
-  opacity: 1;
-  translate: 0 0;
-  color: var(--text-muted);
+.founderImageFrame {
+  overflow: hidden;
+  border: 1px solid rgba(243, 234, 220, 0.18);
+  border-radius: 50% 50% 0.5rem 0.5rem / 8% 8% 0.5rem 0.5rem;
+  background: #261e18;
 }
 
-.world:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.85);
-  outline-offset: 6px;
-  border-radius: 50%;
+.founderImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
-/* ------------------------------------------------------------- keyframes */
+.founderCopy {
+  padding: clamp(1rem, 3vw, 3rem);
+}
 
-@keyframes revolve {
-  from {
-    rotate: var(--orbit-start, 0deg);
-  }
+.founderCopy h2 {
+  font-size: clamp(2.8rem, 5vw, 5.5rem);
+  line-height: 0.92;
+}
+
+.founderCopy > p:last-child {
+  max-width: 34rem;
+  margin: 2rem 0 0;
+  color: rgba(243, 234, 220, 0.7);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding:
+    2rem
+    clamp(1.25rem, 5vw, 5rem)
+    max(2rem, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  color: rgba(243, 234, 220, 0.5);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.worldControl:focus-visible,
+.divisionControl:focus-visible,
+.skipLink:focus-visible,
+.portalLink:focus-visible {
+  outline: 2px solid var(--ivory);
+  outline-offset: 5px;
+}
+
+@keyframes orbit {
   to {
-    rotate: calc(var(--orbit-start, 0deg) + 360deg);
+    rotate: calc(var(--orbit-start) + 360deg);
   }
 }
 
-@keyframes counter-revolve {
-  from {
-    rotate: calc(var(--orbit-start, 0deg) * -1);
-  }
+@keyframes counter-orbit {
   to {
-    rotate: calc(var(--orbit-start, 0deg) * -1 - 360deg);
+    rotate: calc(var(--orbit-start) * -1 - 360deg);
   }
 }
 
 @keyframes breathe {
   from {
-    opacity: 0.55;
+    opacity: 0.48;
   }
   to {
     opacity: 1;
   }
 }
 
-/* --------------------------------------------------------------- reduced */
+@media (max-width: 59.999rem) {
+  .universeLayout,
+  .founder {
+    grid-template-columns: 1fr;
+  }
 
-/* Same finished composition, held still. Every element already carries its
-   resting transform, so removing the animations changes nothing but motion. */
+  .stage {
+    width: min(100%, 38rem);
+  }
+
+  .detailPanel {
+    min-height: 0;
+  }
+
+  .founderImageFrame {
+    order: 0;
+  }
+
+  .founderCopy {
+    order: 1;
+  }
+}
+
+@media (max-width: 34rem) {
+  .heroStatement h1 {
+    font-size: clamp(3rem, 17vw, 5.4rem);
+  }
+
+  .universeSection {
+    padding-inline: 0.9rem;
+  }
+
+  .stage {
+    width: min(100%, 29rem);
+  }
+
+  .divisionLabel {
+    letter-spacing: 0.1em;
+  }
+
+  .detailPanel {
+    margin-inline: 0.35rem;
+  }
+
+  .founder {
+    width: calc(100% - 1.5rem);
+  }
+
+  .footer {
+    flex-direction: column;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .starsDrift,
   .starsBright,
-  .halo,
-  .disc,
-  .discOuter,
   .orbit,
-  .world {
+  .divisionControl {
     animation: none;
   }
 
   .starsDrift,
-  .starsBright,
-  .halo {
-    opacity: 0.85;
-  }
-
-  .body,
-  .name,
-  .action {
-    transition-duration: 1ms;
-  }
-}
-
-/* ------------------------------------------------------------ responsive */
-
-@media (max-height: 52rem) {
-  .stage {
-    --stage-height: 56svh;
-  }
-}
-
-@media (max-height: 40rem) {
-  .stage {
-    --stage-height: 48svh;
-  }
-}
-
-/* Pull the orbit inward on narrow screens so the label always has room
-   between the path and the edge of the stage. */
-@media (max-width: 34rem) {
-  .stage {
-    --orbit-scale: 0.84;
-  }
-
-  .name {
-    font-size: 0.72rem;
-  }
-
-  .action {
-    font-size: 0.75rem;
+  .starsBright {
+    opacity: 0.8;
   }
 }

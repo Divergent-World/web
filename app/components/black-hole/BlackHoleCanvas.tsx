@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import {
@@ -18,12 +18,11 @@ type DiskProfile = typeof profile.hotDisk | typeof profile.dustDisk
 
 function createDiskUniforms(
   disk: DiskProfile,
-  time: THREE.IUniform<number>,
-  reduced: THREE.IUniform<number>,
+  reducedMotion: boolean,
 ) {
   return {
-    uTime: time,
-    uReducedMotion: reduced,
+    uTime: { value: 0 },
+    uReducedMotion: { value: reducedMotion ? 1 : 0 },
     uInnerRadius: { value: disk.innerRadius },
     uOuterRadius: { value: disk.outerRadius },
     uLayer: { value: disk.layer },
@@ -38,18 +37,15 @@ function createDiskUniforms(
 }
 
 function BlackHole({ reducedMotion }: BlackHoleCanvasProps) {
-  const time = useMemo<THREE.IUniform<number>>(() => ({ value: 0 }), [])
-  const reduced = useMemo<THREE.IUniform<number>>(
-    () => ({ value: reducedMotion ? 1 : 0 }),
-    [],
-  )
+  const hotMaterial = useRef<THREE.ShaderMaterial>(null)
+  const dustMaterial = useRef<THREE.ShaderMaterial>(null)
   const hotUniforms = useMemo(
-    () => createDiskUniforms(profile.hotDisk, time, reduced),
-    [reduced, time],
+    () => createDiskUniforms(profile.hotDisk, reducedMotion),
+    [reducedMotion],
   )
   const dustUniforms = useMemo(
-    () => createDiskUniforms(profile.dustDisk, time, reduced),
-    [reduced, time],
+    () => createDiskUniforms(profile.dustDisk, reducedMotion),
+    [reducedMotion],
   )
   const lensUniforms = useMemo(
     () => ({
@@ -60,12 +56,12 @@ function BlackHole({ reducedMotion }: BlackHoleCanvasProps) {
     [],
   )
 
-  useEffect(() => {
-    reduced.value = reducedMotion ? 1 : 0
-  }, [reduced, reducedMotion])
-
   useFrame((_, delta) => {
-    if (!reducedMotion) time.value += Math.min(delta, 0.1)
+    if (!reducedMotion) {
+      const step = Math.min(delta, 0.1)
+      hotMaterial.current!.uniforms.uTime.value += step
+      dustMaterial.current!.uniforms.uTime.value += step
+    }
   })
 
   return (
@@ -115,6 +111,7 @@ function BlackHole({ reducedMotion }: BlackHoleCanvasProps) {
           ]}
         />
         <shaderMaterial
+          ref={hotMaterial}
           uniforms={hotUniforms}
           vertexShader={BLACK_HOLE_VERTEX_SHADER}
           fragmentShader={ACCRETION_FRAGMENT_SHADER}
@@ -141,6 +138,7 @@ function BlackHole({ reducedMotion }: BlackHoleCanvasProps) {
           ]}
         />
         <shaderMaterial
+          ref={dustMaterial}
           uniforms={dustUniforms}
           vertexShader={BLACK_HOLE_VERTEX_SHADER}
           fragmentShader={ACCRETION_FRAGMENT_SHADER}
