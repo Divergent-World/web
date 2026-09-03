@@ -15,9 +15,12 @@ export type UniverseEntry = {
   status: 'Institution' | 'Forming' | 'Active'
   accent: string
   orbit?: {
+    distance: number
+    period: number
+    inclination: number
+    startAngle: number
     radius: number
     duration: number
-    startAngle: number
   }
   projects: readonly UniverseProject[]
 }
@@ -44,7 +47,14 @@ export const DIVISIONS: readonly UniverseEntry[] = [
       'Software, AI systems, automation, and tools for meaningful work.',
     status: 'Forming',
     accent: '#f2e5cd',
-    orbit: { radius: 36, duration: 96, startAngle: 304 },
+    orbit: {
+      distance: 12,
+      period: 96,
+      inclination: 8,
+      startAngle: 304,
+      radius: 36,
+      duration: 96,
+    },
     projects: [],
   },
   {
@@ -56,7 +66,14 @@ export const DIVISIONS: readonly UniverseEntry[] = [
       'Books, films, music, art, games, and enduring intellectual property.',
     status: 'Active',
     accent: '#d6a76c',
-    orbit: { radius: 58, duration: 132, startAngle: 112 },
+    orbit: {
+      distance: 17,
+      period: 132,
+      inclination: -11,
+      startAngle: 112,
+      radius: 58,
+      duration: 132,
+    },
     projects: [
       {
         name: 'Revelation',
@@ -74,7 +91,14 @@ export const DIVISIONS: readonly UniverseEntry[] = [
       'Fashion, furniture, architecture, objects, and future hardware.',
     status: 'Forming',
     accent: '#7c2f2d',
-    orbit: { radius: 80, duration: 174, startAngle: 226 },
+    orbit: {
+      distance: 22,
+      period: 174,
+      inclination: 17,
+      startAngle: 226,
+      radius: 80,
+      duration: 174,
+    },
     projects: [],
   },
 ]
