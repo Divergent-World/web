@@ -2,7 +2,6 @@
   --ink: #080706;
   --ivory: #f3eadc;
   --bronze: #b98550;
-  --oxblood: #682827;
   position: relative;
   isolation: isolate;
   overflow-x: clip;
@@ -115,14 +114,8 @@
 .cssUniverseFallback {
   z-index: 0;
   background:
-    radial-gradient(circle at 50% 48%, transparent 0 7%, #000 7.5% 13%, transparent 13.5%),
-    radial-gradient(ellipse at 50% 48%, rgba(243, 234, 220, 0.34), rgba(185, 133, 80, 0.1) 24%, transparent 43%),
-    var(--stars-still),
-    #080706;
-}
-
-.universeSection:has(canvas) .cssUniverseFallback {
-  background:
+    radial-gradient(circle at 50% 48%, #000 0 5.8%, rgba(243, 234, 220, 0.26) 6.3%, rgba(185, 133, 80, 0.08) 10%, transparent 21%),
+    radial-gradient(ellipse at 50% 48%, rgba(243, 234, 220, 0.12), rgba(185, 133, 80, 0.05) 24%, transparent 43%),
     var(--stars-still),
     #080706;
 }
@@ -265,55 +258,65 @@
 .founder {
   position: relative;
   z-index: 1;
-  display: grid;
   min-height: 100svh;
-  grid-template-columns: minmax(0, 1.45fr) minmax(16rem, 0.55fr);
-  align-items: center;
-  gap: clamp(1.5rem, 5vw, 5rem);
-  padding: clamp(5rem, 10vw, 9rem) clamp(1.25rem, 5vw, 5rem);
-  background: linear-gradient(to bottom, transparent, rgba(22, 16, 13, 0.68), transparent);
-  scroll-margin-top: 3rem;
+  overflow: clip;
+  scroll-margin-top: 0;
 }
 
-.founderImageFrame {
-  overflow: hidden;
+.founderVisual {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at 52% 18%, rgba(243, 234, 220, 0.14), transparent 42%);
+}
+
+.founderVisual::after {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 78%, transparent 20%, rgba(8, 7, 6, 0.34) 62%, #080706 94%),
+    linear-gradient(to bottom, #080706 0 13%, rgba(8, 7, 6, 0.9) 17%, transparent 29% 68%, #080706 96%);
+  pointer-events: none;
+  content: "";
 }
 
 .founderImage {
   display: block;
-  width: 100%;
+  width: min(76vw, 72rem);
   height: auto;
-  object-fit: contain;
+  opacity: 0.88;
+  -webkit-mask-image: radial-gradient(ellipse 64% 60% at 50% 48%, #000 42%, rgba(0, 0, 0, 0.84) 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 64% 60% at 50% 48%, #000 42%, rgba(0, 0, 0, 0.84) 60%, transparent 100%);
 }
 
 .founderCopy {
-  align-self: end;
-  padding-bottom: clamp(1rem, 6vw, 7rem);
-}
-
-.eyebrow {
-  margin: 0 0 0.6rem;
-  color: var(--bronze);
-  font-size: clamp(0.5625rem, 0.7vw, 0.75rem);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  position: absolute;
+  right: max(1.25rem, env(safe-area-inset-right));
+  bottom: max(2rem, env(safe-area-inset-bottom));
+  z-index: 2;
+  width: min(22rem, calc(100% - 2.5rem));
 }
 
 .founderCopy h2 {
-  margin: 0;
+  margin-block: 0.45rem;
   font-family: var(--font-serif);
-  font-size: clamp(1.125rem, 1.5vw, 1.75rem);
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
   font-weight: 400;
   letter-spacing: -0.02em;
   line-height: 1.08;
 }
 
-.founderCopy > p:last-child {
-  max-width: 25rem;
-  margin-top: 0.8rem;
+.founderCopy p {
   color: rgba(243, 234, 220, 0.6);
-  font-size: clamp(0.625rem, 0.75vw, 0.78rem);
-  line-height: 1.7;
+  font-size: clamp(0.625rem, 0.75vw, 0.75rem);
+  line-height: 1.65;
+}
+
+.founderCopy > p:first-child {
+  color: var(--bronze);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 .footer {
@@ -395,14 +398,8 @@
     width: min(17rem, calc(100% - 2rem));
   }
 
-  .founder {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding-inline: 0;
-  }
-
-  .founderCopy {
-    padding: 1.25rem;
+  .founderImage {
+    width: min(112vw, 48rem);
   }
 }
 
@@ -428,6 +425,16 @@
 
   .sceneIntro {
     width: min(18rem, calc(100% - 2rem));
+  }
+
+  .founderCopy {
+    right: auto;
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
+    left: 1.25rem;
+  }
+
+  .founderCopy h2 {
+    font-size: 1.35rem;
   }
 }
 

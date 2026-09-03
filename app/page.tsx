@@ -30,23 +30,23 @@ export default function Home() {
           className={styles.founder}
           aria-labelledby="founder-title"
         >
-          <div className={styles.founderImageFrame}>
+          <div className={styles.founderVisual}>
             <Image
               src="/images/ali-rahman.png"
               alt="Ali Rahman, founder of Divergent World."
               width={1024}
               height={1024}
-              sizes="(min-width: 60rem) 58vw, 100vw"
+              sizes="(min-width: 60rem) 68vw, 100vw"
               className={styles.founderImage}
             />
           </div>
           <div className={styles.founderCopy}>
-            <p className={styles.eyebrow}>The founder</p>
+            <p>The founder</p>
             <h2 id="founder-title">Founded by Ali Rahman.</h2>
             <p>
               Ali founded Divergent World to build one enduring institution
-              across technology, media, and design—an ecosystem made to expand
-              human capability, creativity, and independence.
+              across technology, media, and design—in service of human
+              potential.
             </p>
           </div>
         </section>
