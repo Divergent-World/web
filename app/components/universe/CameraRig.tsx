@@ -10,8 +10,8 @@ import {
   getCameraDestination,
   getCameraFlightProgress,
   getTrackingTranslation,
-  shouldReleasePageScroll,
 } from './scene-model'
+import { attachPageScrollHandoff } from './wheel-handoff'
 
 type Props = {
   selectedId: UniverseEntryId
@@ -66,28 +66,17 @@ export default function CameraRig({
       tracking.current = null
     }
 
-    const releasePageScroll = (event: WheelEvent) => {
-      const distance = camera.position.distanceTo(nextControls.target)
-      if (
-        shouldReleasePageScroll(
-          distance,
-          nextControls.maxDistance,
-          event.deltaY,
-        )
-      ) {
-        event.stopImmediatePropagation()
-      }
-    }
-
     nextControls.addEventListener('start', cancelAutomaticMotion)
-    gl.domElement.addEventListener('wheel', releasePageScroll, {
-      capture: true,
-    })
+    const detachPageScrollHandoff = attachPageScrollHandoff(
+      gl.domElement,
+      () => camera.position.distanceTo(nextControls.target),
+      nextControls.maxDistance,
+    )
     controls.current = nextControls
 
     return () => {
       nextControls.removeEventListener('start', cancelAutomaticMotion)
-      gl.domElement.removeEventListener('wheel', releasePageScroll, true)
+      detachPageScrollHandoff()
       nextControls.dispose()
       controls.current = null
     }

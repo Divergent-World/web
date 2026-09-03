@@ -1,7 +1,13 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { useCallback, useEffect, useReducer, useState } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react'
 import {
   DIVERGENT_WORLD,
   DIVISIONS,
@@ -26,6 +32,8 @@ export default function UniverseExperience() {
     { selectedId: 'world', resetSignal: 0 },
   )
   const [reducedMotion, setReducedMotion] = useState(false)
+  const [sceneInView, setSceneInView] = useState(true)
+  const universeSection = useRef<HTMLElement>(null)
   const selected = getUniverseEntry(selectedId)
   const select = useCallback((id: UniverseEntryId) => dispatch(id), [])
 
@@ -37,9 +45,22 @@ export default function UniverseExperience() {
     return () => query.removeEventListener('change', update)
   }, [])
 
+  useEffect(() => {
+    const section = universeSection.current
+    if (!section || !('IntersectionObserver' in window)) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setSceneInView(entry.isIntersecting),
+      { threshold: 0.01 },
+    )
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section
       id="universe"
+      ref={universeSection}
       className={styles.universeSection}
       aria-label="Divergent World universe"
     >
@@ -50,6 +71,7 @@ export default function UniverseExperience() {
           selectedId={selectedId}
           resetSignal={resetSignal}
           reducedMotion={reducedMotion}
+          active={sceneInView}
           onSelect={select}
         />
       </UniverseErrorBoundary>

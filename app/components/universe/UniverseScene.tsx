@@ -23,6 +23,7 @@ export type UniverseSceneProps = {
   selectedId: UniverseEntryId
   resetSignal: number
   reducedMotion: boolean
+  active: boolean
   onSelect: (id: UniverseEntryId) => void
 }
 
@@ -136,6 +137,10 @@ function OrbitingDivision({
   )
 }
 
+type SceneContentsProps = Omit<UniverseSceneProps, 'active'> & {
+  objectRegistry: Registry
+}
+
 function SceneContents({
   entries,
   selectedId,
@@ -143,7 +148,7 @@ function SceneContents({
   reducedMotion,
   onSelect,
   objectRegistry,
-}: UniverseSceneProps & { objectRegistry: Registry }) {
+}: SceneContentsProps) {
   const registerObject = (
     id: UniverseEntryId,
     node: THREE.Group | null,
@@ -192,22 +197,24 @@ function SceneContents({
 
 export default function UniverseScene(props: UniverseSceneProps) {
   const objectRegistry = useRef(new Map<UniverseEntryId, THREE.Object3D>())
-  const [visible, setVisible] = useState(true)
+  const [documentVisible, setDocumentVisible] = useState(true)
 
   useEffect(() => {
-    const updateVisibility = () => setVisible(!document.hidden)
+    const updateVisibility = () => setDocumentVisible(!document.hidden)
     updateVisibility()
     document.addEventListener('visibilitychange', updateVisibility)
     return () =>
       document.removeEventListener('visibilitychange', updateVisibility)
   }, [])
 
+  const { active, ...sceneProps } = props
+
   return (
     <Canvas
       className={styles.universeCanvas}
       aria-hidden="true"
       dpr={[1, BLACK_HOLE_RENDER_PROFILE.maxDpr]}
-      frameloop={visible ? 'always' : 'never'}
+      frameloop={active && documentVisible ? 'always' : 'never'}
       camera={{
         fov: OVERVIEW_CAMERA.fov,
         near: 0.1,
@@ -221,7 +228,7 @@ export default function UniverseScene(props: UniverseSceneProps) {
       }}
       onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
     >
-      <SceneContents {...props} objectRegistry={objectRegistry} />
+      <SceneContents {...sceneProps} objectRegistry={objectRegistry} />
     </Canvas>
   )
 }
