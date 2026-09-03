@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { PUBLIC_NAVIGATION } from '@/lib/navigation'
 import UniverseExperience from './components/UniverseExperience'
 import styles from './page.module.css'
 
@@ -16,9 +17,12 @@ export default function Home() {
           Divergent.World
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#universe">Universe</a>
-          <a href="#about">About</a>
-          <a href="https://revelation.divergent.world">Revelation ↗</a>
+          {PUBLIC_NAVIGATION.map(({ label, href, external }) => (
+            <a href={href} key={href}>
+              {label}
+              {external ? ' ↗' : ''}
+            </a>
+          ))}
         </nav>
       </header>
 
@@ -53,8 +57,18 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <p>Divergent World</p>
-        <p>One mission · Infinite time horizon</p>
+        <div className={styles.footerIdentity}>
+          <p>Divergent World</p>
+          <p>One mission · Infinite time horizon</p>
+        </div>
+        <nav aria-label="Footer navigation">
+          {PUBLIC_NAVIGATION.map(({ label, href, external }) => (
+            <a href={href} key={href}>
+              {label}
+              {external ? ' ↗' : ''}
+            </a>
+          ))}
+        </nav>
       </footer>
     </div>
   )

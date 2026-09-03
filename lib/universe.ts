@@ -86,7 +86,7 @@ export const DIVISIONS: readonly UniverseEntry[] = [
     status: 'Forming',
     accent: '#7c2f2d',
     orbit: {
-      distance: 22,
+      distance: 19,
       period: 174,
       inclination: 17,
       startAngle: 226,

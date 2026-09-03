@@ -5,8 +5,12 @@
 :root {
   color-scheme: dark;
 
-  --void: #080706;
-  --text: #f3eadc;
+  --ink: #080706;
+  --ivory: #f3eadc;
+  --bronze: #b98550;
+  --oxblood: #682827;
+  --void: var(--ink);
+  --text: var(--ivory);
 
   --font-sans:
     ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,

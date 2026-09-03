@@ -3,6 +3,9 @@
 The public gateway to Divergent World: an institution building technologies,
 media, and products that increase human potential.
 
+The longer-term identity, membership, directory, and application direction is
+recorded in [`docs/product-platform-vision.md`](docs/product-platform-vision.md).
+
 The homepage presents its three active branches as a universe orbiting a
 procedural black hole:
 

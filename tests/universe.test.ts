@@ -51,3 +51,13 @@ test('defines true 3D orbital data without interaction state', () => {
     assert.equal('selected' in (division.orbit ?? {}), false)
   }
 })
+
+test('keeps Design within the visible outer system', () => {
+  const mediaDistance = DIVISIONS.find(({ id }) => id === 'media')?.orbit
+    ?.distance
+  const designDistance = DIVISIONS.find(({ id }) => id === 'design')?.orbit
+    ?.distance
+
+  assert.equal(designDistance, 19)
+  assert.ok(designDistance! > mediaDistance!)
+})

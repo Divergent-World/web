@@ -79,7 +79,7 @@ export default function UniverseExperience() {
       <div className={styles.sceneIntro}>
         <p>Divergent World · Technology · Media · Design</p>
         <h1>Build what makes us more human.</h1>
-        <p>Drag to orbit · Pinch or scroll to move through the system</p>
+        <p>Drag to orbit · Pinch to zoom · Scroll explores to the edge</p>
       </div>
 
       <nav
@@ -123,7 +123,8 @@ export default function UniverseExperience() {
       </article>
 
       <a className={styles.scrollCue} href="#about">
-        Continue to About ↓
+        <span>Universe gestures explore</span>
+        <strong>This strip continues to About ↓</strong>
       </a>
     </section>
   )
