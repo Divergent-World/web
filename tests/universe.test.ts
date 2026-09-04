@@ -5,6 +5,7 @@ import {
   DIVISIONS,
   UNIVERSE_ENTRIES,
   getCompanyBySlug,
+  getUniverseEntryPath,
   getUniverseEntry,
 } from '../lib/universe.ts'
 
@@ -56,6 +57,20 @@ test('keeps Revelation as the only public project destination', () => {
 test('falls back to the institution for unknown selections', () => {
   assert.equal(getUniverseEntry('missing'), DIVERGENT_WORLD)
   assert.equal(getUniverseEntry(null), DIVERGENT_WORLD)
+})
+
+test('routes every universe selection to its detailed public surface', () => {
+  assert.equal(getUniverseEntryPath(DIVERGENT_WORLD), '/about')
+  assert.deepEqual(
+    DIVISIONS.map(getUniverseEntryPath),
+    [
+      '/companies/systems',
+      '/companies/media',
+      '/companies/design',
+      '/companies/ventures',
+      '/companies/properties',
+    ],
+  )
 })
 
 test('defines true 3D orbital data without interaction state', () => {

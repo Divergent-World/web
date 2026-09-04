@@ -16,8 +16,8 @@ orbiting a procedural black hole:
 - **Divergent Ventures** will allocate capital and is a future horizon.
 - **Divergent Properties** will create permanence and is a future horizon.
 
-The public architecture includes Our Work and five company routes, About, a
-printable Manifesto, News with permanent publication routes, and Careers. The
+The public architecture has one Company overview with five detailed company
+routes, a printable Manifesto, News with permanent publication routes, and Careers. The
 Executive Assistant page transparently describes a future opening and accepts
 expressions of interest by email; it does not present an active hiring process.
 
@@ -90,7 +90,8 @@ Crawler and agent surfaces are generated from the same typed content sources:
 
 Every destination is a native button or link, the HTML system index remains
 visible above the decorative canvas, and touch targets are at least 44 pixels
-square. `prefers-reduced-motion: reduce` freezes orbital, shader, halo,
+square. The primary navigation stays flat so it remains clear on touch and
+keyboard interfaces. `prefers-reduced-motion: reduce` freezes orbital, shader, halo,
 star-field, camera, and surfacing motion while preserving the complete
 composition. The borderless founder image is masked into the surrounding
 atmosphere rather than presented as a card. The Manifesto has a dedicated print

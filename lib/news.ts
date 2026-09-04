@@ -59,7 +59,7 @@ export const NEWS: readonly NewsEntry[] = [
       'The structure matters because each company can strengthen the others. Technology becomes more legible through culture and design; value can become capital; capital can become durable places for people and work.',
       'Systems and Design are forming. Media is active through Revelation. Ventures and Properties are future horizons, named now so the long-term architecture is clear without pretending those companies are active today.',
     ],
-    relatedLinks: [{ label: 'Explore all five companies', href: '/companies' }],
+    relatedLinks: [{ label: 'Explore all five companies', href: '/about#companies' }],
   },
 ]
 

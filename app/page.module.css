@@ -241,19 +241,20 @@
   scroll-margin-top: 0;
 }
 
-.editorialSection {
+.overview {
   position: relative;
   z-index: 1;
   display: grid;
   width: min(100%, calc(var(--content-width) + (2 * var(--page-gutter))));
-  min-height: 72svh;
   margin-inline: auto;
-  padding: clamp(7rem, 15svh, 11rem) var(--page-gutter);
-  align-content: center;
+  padding: clamp(6rem, 12svh, 9rem) var(--page-gutter);
+  scroll-margin-top: 4rem;
 }
 
-.signalSection {
-  width: min(100%, calc(var(--reading-width) + (2 * var(--page-gutter))));
+.overviewIntro {
+  display: grid;
+  max-width: var(--reading-width);
+  gap: 0.75rem;
 }
 
 .eyebrow,
@@ -264,76 +265,79 @@
   text-transform: uppercase;
 }
 
-.editorialSection > h2 {
+.overview h2,
+.overview h3 {
   max-width: 15ch;
-  margin-block: 0.9rem 1.5rem;
-  font: 400 clamp(2.5rem, 6vw, 6rem)/0.96 var(--font-serif);
-  letter-spacing: -0.045em;
+  font: 400 clamp(1.125rem, 1.5vw, 1.5rem)/1.08 var(--font-serif);
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 .editorialLede {
   max-width: var(--reading-width);
   color: var(--signal-body);
-  font-size: clamp(1.05rem, 1.8vw, 1.45rem);
-  line-height: 1.65;
+  font-size: clamp(0.875rem, 1.1vw, 1rem);
+  line-height: 1.7;
 }
 
-.companyIndex {
+.overviewGrid {
   display: grid;
-  margin-top: clamp(2rem, 5vw, 4rem);
-  border-top: 1px solid rgba(243, 234, 220, 0.12);
+  grid-template-columns: minmax(0, 2fr) minmax(15rem, 0.8fr);
+  gap: clamp(3rem, 7vw, 7rem);
+  margin-top: clamp(3.5rem, 7vw, 5.5rem);
 }
 
+.companyIndex,
 .newsIndex {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 4vw, 4rem);
-  margin-top: clamp(2rem, 5vw, 4rem);
+  margin-top: 1.25rem;
   border-top: 1px solid rgba(243, 234, 220, 0.12);
 }
-
-.newsRow {
-  display: grid;
-  align-content: start;
-  gap: 1rem;
-  padding-top: 1.5rem;
-}
-
-.newsRow h3 { font: 400 clamp(1.35rem, 2.4vw, 2rem)/1.05 var(--font-serif); }
-.newsRow h3 a {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-  text-decoration: none;
-}
-.newsRow > p { color: var(--signal-body); font-size: 0.875rem; line-height: 1.7; }
 
 .companyRow {
   display: grid;
-  grid-template-columns: minmax(10rem, 0.9fr) minmax(10rem, 1fr) minmax(14rem, 1.4fr) auto;
-  gap: 1rem 2rem;
-  min-height: 8rem;
+  grid-template-columns: minmax(7rem, 0.65fr) minmax(9rem, 0.9fr) minmax(14rem, 1.35fr);
+  gap: 1rem 1.5rem;
+  min-height: 6rem;
   align-items: center;
   border-bottom: 1px solid rgba(243, 234, 220, 0.12);
 }
 
-.companyMeta { display: grid; gap: 0.3rem; }
-.companyMeta span:last-child { color: var(--signal-faint); }
-.companyRow h3 { font: 400 clamp(1.25rem, 2vw, 1.8rem)/1.1 var(--font-serif); }
-.companyRow > p { color: var(--signal-body); font-size: 0.875rem; }
-.companyRow > a {
+.companyRow h4,
+.newsRow h4 {
+  font: 400 clamp(1rem, 1.3vw, 1.125rem)/1.15 var(--font-serif);
+}
+
+.companyRow h4 a,
+.newsRow h4 a {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
-  color: var(--signal-muted);
-  font: 0.625rem/1.4 var(--font-mono);
-  letter-spacing: 0.1em;
   text-decoration: none;
-  text-transform: uppercase;
 }
 
-.invitation { min-height: 82svh; }
+.companyRow > p {
+  color: var(--signal-body);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+.companyMeta { display: grid; gap: 0.3rem; }
+.companyMeta span:last-child,
+.companyMeta time { color: var(--signal-faint); }
+
+.latest {
+  padding-left: clamp(1.5rem, 3vw, 3rem);
+  border-left: 1px solid rgba(243, 234, 220, 0.12);
+}
+
+.newsRow {
+  display: grid;
+  gap: 0.35rem;
+  padding-block: 1rem;
+  border-bottom: 1px solid rgba(243, 234, 220, 0.12);
+}
+
 .editorialActions { margin-top: 1rem; }
 
 .founderVisual {
@@ -489,11 +493,23 @@
   }
 
   .companyRow {
-    grid-template-columns: minmax(8rem, 0.8fr) 1fr;
-    padding-block: 1.5rem;
+    grid-template-columns: 5.75rem 1fr;
+    gap: 0.25rem 0.85rem;
+    min-height: auto;
+    padding-block: 0.8rem;
   }
 
-  .newsIndex { grid-template-columns: 1fr; }
+  .companyMeta { grid-row: span 2; }
+  .companyRow > p { grid-column: 2; }
+
+  .overviewGrid { grid-template-columns: 1fr; }
+
+  .latest {
+    padding-top: 3rem;
+    padding-left: 0;
+    border-top: 1px solid rgba(243, 234, 220, 0.12);
+    border-left: 0;
+  }
 }
 
 @media (max-width: 30rem) {
@@ -513,8 +529,6 @@
   }
 
   .sceneIntro h1 { font-size: 1.6rem; }
-
-  .companyRow { grid-template-columns: 1fr; }
 
   .founderCopy {
     top: auto;

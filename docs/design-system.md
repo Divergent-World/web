@@ -90,16 +90,19 @@ accents, not general page tokens.
 - Monospace verifies: category, date, role, status, system state, and compact
   actions.
 
-Large serif type should remain balanced and concise. Reading copy stays within
+Serif type remains restrained: public page titles and major section headings
+use the same quiet scale as the founder title on the homepage. Meaning and
+placement earn emphasis before size. Reading copy stays within
 `--reading-width`; institutional indexes may use `--content-width`.
 
 ## Layout
 
-Pages are atmospheric fields, not stacks of panels. Use safe-area-aware
-`--page-gutter`, generous vertical intervals, and one dominant alignment per
-section. At 48rem, multi-column indexes simplify; at 30rem, content becomes a
-single readable column. The universe index becomes two rows of three at narrow
-widths without removing any destination.
+Pages are atmospheric fields, not stacks of panels. The homepage has three
+fields only: the universe, one compact institutional overview, and the founder.
+Use safe-area-aware `--page-gutter`, deliberate vertical intervals, and one
+dominant alignment per section. At 48rem, multi-column indexes simplify; at
+30rem, content becomes a single readable column. The universe index becomes
+two rows of three at narrow widths without removing any destination.
 
 ## Surfaces
 
@@ -118,7 +121,7 @@ interactive movement stops while all content and navigation remain available.
 
 ## Components
 
-- **SiteShell** owns the sky, fixed identity, disclosure navigation, and
+- **SiteShell** owns the sky, fixed identity, flat primary navigation, and
   institutional footer.
 - **PageIntro** carries an eyebrow, one page-level heading, a concise
   introduction, and optional metadata.
@@ -132,7 +135,7 @@ interactive movement stops while all content and navigation remain available.
 ## Accessibility
 
 Every page has one visible `h1` and a logical heading hierarchy. Navigation uses
-native links, buttons, and disclosure controls. Focus is visible; touch targets
+native links and buttons without hidden desktop-only menus. Focus is visible; touch targets
 are at least 44 pixels; contrast is carried by the established ivory scale;
 reduced motion preserves content; and the Manifesto prints as black text on
 white without navigation, atmosphere, animation, or clipped sections.

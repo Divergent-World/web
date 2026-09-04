@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { createPageMetadata } from '@/lib/metadata'
 import { createEmailHref } from '@/lib/site'
+import { DIVISIONS } from '@/lib/universe'
 import PageIntro from '../components/site/PageIntro'
 import styles from '../content.module.css'
 
@@ -31,6 +32,41 @@ export default function AboutPage() {
           title="Build one coherent institution."
           introduction="Divergent World combines technology, media, design, capital, and place to expand human capability, life, and well-being."
         />
+
+        <section id="companies" className={styles.section}>
+          <p className={styles.eyebrow}>The institution</p>
+          <h2>One institution. Five companies.</h2>
+          <p>
+            Technology creates capability. Media creates culture. Design
+            creates experience. Ventures allocates capital. Properties creates
+            permanence. Each company exists to strengthen the others.
+          </p>
+          <div className={styles.sequence} aria-label="Institutional sequence">
+            {DIVISIONS.map((company) => <span key={company.id}>{company.role}</span>)}
+          </div>
+          <div className={styles.index}>
+            {DIVISIONS.map((company) => (
+              <article className={styles.indexRow} key={company.id}>
+                <div className={styles.indexMeta}>
+                  <span>{company.role}</span>
+                  <span className={styles.status}>{company.status}</span>
+                </div>
+                <h3>
+                  <Link href={`/companies/${company.slug}`}>{company.name}</Link>
+                </h3>
+                <p>{company.mission}</p>
+                <Link className={styles.indexLink} href={`/companies/${company.slug}`}>
+                  Explore
+                </Link>
+              </article>
+            ))}
+          </div>
+          <div className={styles.actions}>
+            <Link href="/manifesto">Read the Manifesto</Link>
+            <Link href="/news">News</Link>
+            <Link href="/careers">Careers</Link>
+          </div>
+        </section>
 
         <section className={styles.section}>
           <h2>Why we exist</h2>
@@ -89,11 +125,7 @@ export default function AboutPage() {
               Investors
             </a>
           </div>
-        </section>
-
-        <section className={styles.section}>
-          <p className={styles.eyebrow}>Future opening</p>
-          <h2>Executive Assistant</h2>
+          <h3>Executive Assistant · Future opening</h3>
           <p>
             Expressions of interest are welcome for a future role supporting
             Ali Rahman and the operating rhythm of Divergent World.

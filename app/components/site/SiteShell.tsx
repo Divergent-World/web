@@ -1,9 +1,7 @@
 import Link from 'next/link'
-import {
-  PUBLIC_NAVIGATION_GROUPS,
-  REVELATION_LINK,
-} from '@/lib/navigation'
+import { PUBLIC_NAVIGATION, REVELATION_LINK } from '@/lib/navigation'
 import { createEmailHref } from '@/lib/site'
+import { DIVISIONS } from '@/lib/universe'
 import styles from './site-shell.module.css'
 
 export default function SiteShell({ children }: { children: React.ReactNode }) {
@@ -20,17 +18,10 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
           Divergent.World
         </Link>
         <nav className={styles.primaryNav} aria-label="Primary navigation">
-          {PUBLIC_NAVIGATION_GROUPS.map((group) => (
-            <details className={styles.navGroup} key={group.label}>
-              <summary>{group.label}</summary>
-              <div className={styles.navMenu}>
-                {group.items.map((item) => (
-                  <Link href={item.href} key={item.href}>
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-            </details>
+          {PUBLIC_NAVIGATION.map((item) => (
+            <Link href={item.href} key={item.href}>
+              {item.label}
+            </Link>
           ))}
           <a href={REVELATION_LINK.href}>Revelation ↗</a>
         </nav>
@@ -47,16 +38,23 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
           </a>
         </div>
         <div className={styles.footerMap}>
-          {PUBLIC_NAVIGATION_GROUPS.map((group) => (
-            <nav aria-label={`${group.label} links`} key={group.label}>
-              <p>{group.label}</p>
-              {group.items.map((item) => (
-                <Link href={item.href} key={item.href}>
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          ))}
+          <nav aria-label="Company links">
+            <p>Company</p>
+            <Link href="/about">Overview</Link>
+            {DIVISIONS.map((company) => (
+              <Link href={`/companies/${company.slug}`} key={company.id}>
+                {company.name}
+              </Link>
+            ))}
+          </nav>
+          <nav aria-label="Institutional links">
+            <p>Institution</p>
+            {PUBLIC_NAVIGATION.slice(1).map((item) => (
+              <Link href={item.href} key={item.href}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <nav aria-label="External and publication links">
             <p>Elsewhere</p>
             <a href={REVELATION_LINK.href}>Revelation ↗</a>

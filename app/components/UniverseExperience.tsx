@@ -13,6 +13,7 @@ import {
   DIVERGENT_WORLD,
   DIVISIONS,
   getUniverseEntry,
+  getUniverseEntryPath,
   type UniverseEntryId,
 } from '@/lib/universe'
 import styles from '../page.module.css'
@@ -85,7 +86,7 @@ export default function UniverseExperience() {
           capability and well-being.
         </p>
         <div className={styles.heroActions}>
-          <a href="#institution">Explore the institution</a>
+          <a href="#overview">Explore the institution</a>
           <Link href="/careers">Careers</Link>
         </div>
         <p className={styles.gestureHint}>
@@ -125,6 +126,9 @@ export default function UniverseExperience() {
           </p>
           <h2>{selected.name}</h2>
           <p>{selected.mission}</p>
+          <Link href={getUniverseEntryPath(selected)}>
+            Explore {selected.id === 'world' ? 'the company' : selected.name}
+          </Link>
           {selected.projects.map((project) => (
             <a href={project.href} key={project.href}>
               Enter {project.name} ↗
@@ -133,9 +137,9 @@ export default function UniverseExperience() {
         </div>
       </article>
 
-      <a className={styles.scrollCue} href="#signal">
+      <a className={styles.scrollCue} href="#overview">
         <span>Universe gestures explore</span>
-        <strong>Continue through the signal ↓</strong>
+        <strong>Continue to the institution ↓</strong>
       </a>
     </section>
   )

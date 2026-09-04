@@ -66,8 +66,7 @@ ${roles}
 ## Canonical links
 
 - Home: ${absoluteUrl('/')}
-- Our Work: ${absoluteUrl('/companies')}
-- About: ${absoluteUrl('/about')}
+- Company: ${absoluteUrl('/about')}
 - Manifesto: ${absoluteUrl('/manifesto')}
 - News: ${absoluteUrl('/news')}
 - Careers: ${absoluteUrl('/careers')}

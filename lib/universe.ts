@@ -201,6 +201,10 @@ export function getUniverseEntry(id: string | null): UniverseEntry {
   return UNIVERSE_ENTRIES.find((entry) => entry.id === id) ?? DIVERGENT_WORLD
 }
 
+export function getUniverseEntryPath(entry: UniverseEntry): string {
+  return entry.id === 'world' ? '/about' : `/companies/${entry.id}`
+}
+
 export function getCompanyBySlug(slug: string): UniverseEntry | undefined {
   return DIVISIONS.find((entry) => entry.slug === slug)
 }

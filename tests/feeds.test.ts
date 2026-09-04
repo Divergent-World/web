@@ -15,5 +15,7 @@ test('builds concise agent-readable public context', () => {
   assert.match(content, /learning organization for doers/)
   assert.match(content, /Divergent Ventures - Future horizon/)
   assert.match(content, /\/manifesto/)
+  assert.match(content, /Company: https:\/\/www\.divergent\.world\/about/)
+  assert.doesNotMatch(content, /Our Work:/)
   assert.doesNotMatch(content, /0xZero/)
 })

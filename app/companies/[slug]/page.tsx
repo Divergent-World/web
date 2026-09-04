@@ -93,7 +93,7 @@ export default async function CompanyPage({
         </div>
 
         <div className={styles.actions}>
-          <Link href="/companies">All five companies</Link>
+          <Link href="/about#companies">All five companies</Link>
         </div>
       </div>
     </main>

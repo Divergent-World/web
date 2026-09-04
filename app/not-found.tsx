@@ -13,7 +13,7 @@ export default function NotFound() {
         />
         <nav className={styles.actions} aria-label="Continue browsing">
           <Link href="/">Home</Link>
-          <Link href="/companies">Our work</Link>
+          <Link href="/about">Company</Link>
           <Link href="/news">News</Link>
           <Link href="/careers">Careers</Link>
         </nav>
