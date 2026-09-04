@@ -1,11 +1,27 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { CAREER_ROLES, getCareerRole } from '@/lib/careers'
+import { createPageMetadata } from '@/lib/metadata'
 import PageIntro from '../../components/site/PageIntro'
 import styles from '../../content.module.css'
 
 export function generateStaticParams() {
   return CAREER_ROLES.map((role) => ({ slug: role.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const role = getCareerRole((await params).slug)
+  if (!role) return {}
+  return createPageMetadata({
+    title: role.title,
+    description: role.summary,
+    path: `/careers/${role.slug}`,
+  })
 }
 
 export default async function CareerRolePage({

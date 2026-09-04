@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { createPageMetadata } from '@/lib/metadata'
 import { createEmailHref } from '@/lib/site'
 import { DIVISIONS, getCompanyBySlug } from '@/lib/universe'
 import PageIntro from '../../components/site/PageIntro'
@@ -7,6 +9,20 @@ import styles from '../../content.module.css'
 
 export function generateStaticParams() {
   return DIVISIONS.map((company) => ({ slug: company.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const company = getCompanyBySlug((await params).slug)
+  if (!company) return {}
+  return createPageMetadata({
+    title: company.name,
+    description: company.description,
+    path: `/companies/${company.slug}`,
+  })
 }
 
 export default async function CompanyPage({

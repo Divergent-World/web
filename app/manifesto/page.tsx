@@ -1,6 +1,14 @@
 import Link from 'next/link'
+import { createPageMetadata } from '@/lib/metadata'
 import PageIntro from '../components/site/PageIntro'
 import styles from '../content.module.css'
+
+export const metadata = createPageMetadata({
+  title: 'Manifesto',
+  description:
+    'Create gravity by finding signal, building coherence, and advancing meaningful human frontiers.',
+  path: '/manifesto',
+})
 
 export default function ManifestoPage() {
   return (

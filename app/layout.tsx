@@ -1,11 +1,16 @@
 import type { Metadata, Viewport } from 'next'
-import { assetUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
+import {
+  ORGANIZATION_JSON_LD,
+  WEBSITE_JSON_LD,
+} from '@/lib/metadata'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
+import JsonLd from './components/site/JsonLd'
 import SiteShell from './components/site/SiteShell'
 import './globals.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: SITE_NAME,
+  title: { default: SITE_NAME, template: `%s — ${SITE_NAME}` },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
   alternates: { canonical: SITE_URL },
@@ -16,15 +21,12 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     locale: 'en_US',
-    // Served from the shared public R2 bucket. Referenced by URL only — the
-    // build never reaches out to the bucket, and a missing object degrades
-    // to no social image rather than a failed build.
     images: [
       {
-        url: assetUrl('opengraph.png'),
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
-        alt: 'Divergent World — technology, media, and design orbiting one institution.',
+        alt: 'Divergent World — Create gravity.',
       },
     ],
   },
@@ -32,9 +34,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: [assetUrl('opengraph.png')],
+    images: ['/opengraph-image'],
   },
   robots: { index: true, follow: true },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {
@@ -50,6 +53,8 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="event-horizon">
       <body>
+        <JsonLd data={ORGANIZATION_JSON_LD} />
+        <JsonLd data={WEBSITE_JSON_LD} />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

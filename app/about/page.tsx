@@ -1,8 +1,16 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { createPageMetadata } from '@/lib/metadata'
 import { createEmailHref } from '@/lib/site'
 import PageIntro from '../components/site/PageIntro'
 import styles from '../content.module.css'
+
+export const metadata = createPageMetadata({
+  title: 'About',
+  description:
+    'Learn why Divergent World exists, how the institution works, and how to build or invest with us.',
+  path: '/about',
+})
 
 const PRINCIPLES = [
   ['Simplicity', 'Remove what does not strengthen the work.'],

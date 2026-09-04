@@ -1,7 +1,15 @@
 import Link from 'next/link'
+import { createPageMetadata } from '@/lib/metadata'
 import { NEWS } from '@/lib/news'
 import PageIntro from '../components/site/PageIntro'
 import styles from '../content.module.css'
+
+export const metadata = createPageMetadata({
+  title: 'News',
+  description:
+    'Read announcements, articles, releases, and updates from across Divergent World.',
+  path: '/news',
+})
 
 export default function NewsPage() {
   return (

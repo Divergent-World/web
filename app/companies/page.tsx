@@ -1,7 +1,15 @@
 import Link from 'next/link'
+import { createPageMetadata } from '@/lib/metadata'
 import { DIVISIONS } from '@/lib/universe'
 import PageIntro from '../components/site/PageIntro'
 import styles from '../content.module.css'
+
+export const metadata = createPageMetadata({
+  title: 'Our Work',
+  description:
+    'Explore the five companies that create capability, culture, experience, capital, and permanence across Divergent World.',
+  path: '/companies',
+})
 
 export default function CompaniesPage() {
   return (

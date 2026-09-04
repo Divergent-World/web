@@ -1,8 +1,16 @@
 import Link from 'next/link'
+import { createPageMetadata } from '@/lib/metadata'
 import { CAREER_ROLES } from '@/lib/careers'
 import { createEmailHref } from '@/lib/site'
 import PageIntro from '../components/site/PageIntro'
 import styles from '../content.module.css'
+
+export const metadata = createPageMetadata({
+  title: 'Careers',
+  description:
+    'Explore future roles and expressions of interest at Divergent World.',
+  path: '/careers',
+})
 
 export default function CareersPage() {
   return (
