@@ -1,0 +1,203 @@
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  padding: clamp(9rem, 17svh, 13rem) var(--page-gutter) clamp(5rem, 12svh, 10rem);
+}
+
+.readingColumn,
+.wideColumn {
+  width: min(100%, var(--reading-width));
+  margin-inline: auto;
+}
+
+.wideColumn { width: min(100%, var(--content-width)); }
+
+.section {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: clamp(5rem, 11vw, 9rem);
+}
+
+.section h2,
+.prose h2 {
+  color: var(--signal-strong);
+  font: 400 clamp(2rem, 4.5vw, 4.5rem)/1 var(--font-serif);
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.section h3,
+.prose h3 {
+  color: var(--signal-strong);
+  font: 400 clamp(1.25rem, 2.3vw, 2rem)/1.1 var(--font-serif);
+}
+
+.section > p,
+.prose p,
+.prose li,
+.founderCopy p,
+.indexRow > p {
+  color: var(--signal-body);
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  line-height: 1.75;
+}
+
+.eyebrow,
+.metadata,
+.status,
+.indexMeta {
+  color: var(--signal-warm);
+  font: 0.6875rem/1.45 var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.metadata,
+.status { color: var(--signal-faint); }
+
+.index {
+  display: grid;
+  margin-top: clamp(3rem, 7vw, 6rem);
+  border-top: 1px solid rgba(243, 234, 220, 0.12);
+}
+
+.indexRow {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.75fr) minmax(12rem, 1fr) minmax(15rem, 1.5fr) auto;
+  gap: 1rem 2rem;
+  min-height: 9rem;
+  align-items: center;
+  border-bottom: 1px solid rgba(243, 234, 220, 0.12);
+}
+
+.indexMeta { display: grid; gap: 0.3rem; }
+.indexLink,
+.actions a,
+.relatedLinks a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--signal-strong);
+  font: 0.625rem/1.4 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.indexRow h2,
+.indexRow h3 { font: 400 clamp(1.35rem, 2.4vw, 2.1rem)/1.05 var(--font-serif); }
+.indexRow h2 a,
+.indexRow h3 a { text-decoration: none; }
+
+.sequence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 2.5rem;
+  color: var(--signal-muted);
+  font: 0.72rem/1.5 var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sequence span:not(:last-child)::after {
+  margin-left: 0.7rem;
+  color: var(--signal-warm);
+  content: "→";
+}
+
+.prose {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: clamp(4rem, 9vw, 7rem);
+}
+
+.prose section {
+  display: grid;
+  gap: 1.15rem;
+  padding-top: 2.5rem;
+}
+
+.prose ul { display: grid; gap: 0.75rem; padding-left: 1.25rem; }
+
+.aphorism {
+  margin-block: 2rem;
+  color: var(--signal-strong);
+  font: 400 clamp(1.5rem, 3.5vw, 3rem)/1.2 var(--font-serif);
+  letter-spacing: -0.025em;
+}
+
+.mu {
+  display: block;
+  margin-block: 0.5rem;
+  color: var(--signal-warm);
+  font-size: clamp(4rem, 12vw, 9rem);
+  line-height: 0.9;
+}
+
+.actions,
+.relatedLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.founderComposition {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  align-items: center;
+}
+
+.founderImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 90%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 7%, #000 90%, transparent);
+}
+
+.founderCopy { display: grid; gap: 1rem; }
+
+.articleHeader { display: grid; gap: 0.8rem; }
+.articleBody { margin-top: clamp(3rem, 7vw, 5rem); }
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem clamp(2rem, 6vw, 6rem);
+}
+
+.principles div { display: grid; gap: 0.6rem; }
+
+@media (max-width: 48rem) {
+  .indexRow { grid-template-columns: minmax(8rem, 0.75fr) 1fr; padding-block: 1.5rem; }
+  .founderComposition { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 30rem) {
+  .page { padding-top: 8rem; }
+  .indexRow,
+  .principles { grid-template-columns: 1fr; }
+}
+
+@media print {
+  .page { padding: 0; background: #fff; color: #000; }
+  .readingColumn,
+  .wideColumn { width: 100%; }
+  .prose p,
+  .prose li,
+  .section > p,
+  .aphorism,
+  .prose h2,
+  .prose h3 { color: #000; }
+  .prose section,
+  .aphorism { break-inside: avoid; }
+  .prose h2,
+  .prose h3 { break-after: avoid; }
+  .actions,
+  .relatedLinks { display: none; }
+  .founderImage { -webkit-mask-image: none; mask-image: none; }
+}
