@@ -17,6 +17,8 @@ const CAMERA_OFFSETS: Record<UniverseEntryId, Vector3Tuple> = {
   systems: [4.2, 2, 5.8],
   media: [4.8, 2.2, 6.2],
   design: [4.4, 2.1, 6],
+  ventures: [4.8, 2.4, 6.4],
+  properties: [5.2, 2.6, 6.8],
 }
 
 function round(value: number) {

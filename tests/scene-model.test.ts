@@ -21,6 +21,21 @@ test('places the camera relative to the selected body', () => {
   assert.deepEqual(OVERVIEW_CAMERA.target, [0, 0, 0])
 })
 
+test('defines a camera destination for every institution entry', () => {
+  for (const id of [
+    'world',
+    'systems',
+    'media',
+    'design',
+    'ventures',
+    'properties',
+  ] as const) {
+    const destination = getCameraDestination(id, [0, 0, 0])
+    assert.equal(destination.position.length, 3)
+    assert.deepEqual(destination.target, [0, 0, 0])
+  }
+})
+
 test('eases camera flights and completes immediately for reduced motion', () => {
   assert.equal(getCameraFlightProgress(-1, false), 0)
   assert.equal(getCameraFlightProgress(CAMERA_FLIGHT_SECONDS, false), 1)
