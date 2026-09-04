@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import {
   useCallback,
   useEffect,
@@ -12,6 +13,7 @@ import {
   DIVERGENT_WORLD,
   DIVISIONS,
   getUniverseEntry,
+  getUniverseEntryPath,
   type UniverseEntryId,
 } from '@/lib/universe'
 import styles from '../page.module.css'
@@ -77,9 +79,19 @@ export default function UniverseExperience() {
       </UniverseErrorBoundary>
 
       <div className={styles.sceneIntro}>
-        <p>Divergent World · Technology · Media · Design</p>
-        <h1>Build what makes us more human.</h1>
-        <p>Drag to orbit · Pinch to zoom · Scroll explores to the edge</p>
+        <p>Divergent World · A learning organization for doers</p>
+        <h1>Create gravity.</h1>
+        <p>
+          We cut through noise, concentrate effort, and use AI to expand human
+          capability and well-being.
+        </p>
+        <div className={styles.heroActions}>
+          <a href="#overview">Explore the institution</a>
+          <Link href="/careers">Careers</Link>
+        </div>
+        <p className={styles.gestureHint}>
+          Drag to orbit · Pinch to zoom · Scroll explores to the edge
+        </p>
       </div>
 
       <nav
@@ -114,6 +126,9 @@ export default function UniverseExperience() {
           </p>
           <h2>{selected.name}</h2>
           <p>{selected.mission}</p>
+          <Link href={getUniverseEntryPath(selected)}>
+            Explore {selected.id === 'world' ? 'the company' : selected.name}
+          </Link>
           {selected.projects.map((project) => (
             <a href={project.href} key={project.href}>
               Enter {project.name} ↗
@@ -122,9 +137,9 @@ export default function UniverseExperience() {
         </div>
       </article>
 
-      <a className={styles.scrollCue} href="#about">
+      <a className={styles.scrollCue} href="#overview">
         <span>Universe gestures explore</span>
-        <strong>This strip continues to About ↓</strong>
+        <strong>Continue to the institution ↓</strong>
       </a>
     </section>
   )

@@ -4,15 +4,35 @@ import {
   DIVERGENT_WORLD,
   DIVISIONS,
   UNIVERSE_ENTRIES,
+  getCompanyBySlug,
+  getUniverseEntryPath,
   getUniverseEntry,
 } from '../lib/universe.ts'
 
-test('publishes exactly the three active divisions', () => {
+test('publishes the five reinforcing companies in institutional order', () => {
   assert.deepEqual(
-    DIVISIONS.map(({ id }) => id),
-    ['systems', 'media', 'design'],
+    DIVISIONS.map(({ id, role, status }) => ({ id, role, status })),
+    [
+      { id: 'systems', role: 'Capability', status: 'Forming' },
+      { id: 'media', role: 'Culture', status: 'Active' },
+      { id: 'design', role: 'Experience', status: 'Forming' },
+      { id: 'ventures', role: 'Capital', status: 'Future horizon' },
+      { id: 'properties', role: 'Permanence', status: 'Future horizon' },
+    ],
   )
-  assert.equal(UNIVERSE_ENTRIES.length, 4)
+  assert.equal(UNIVERSE_ENTRIES.length, 6)
+})
+
+test('gives every company substantive page content and a canonical slug', () => {
+  for (const company of DIVISIONS) {
+    assert.equal(company.slug, company.id)
+    assert.ok(company.purpose.length >= 45)
+    assert.ok(company.frontier.length >= 45)
+    assert.ok(company.contribution.length >= 45)
+    assert.ok(company.direction.length >= 45)
+    assert.equal(getCompanyBySlug(company.slug), company)
+  }
+  assert.equal(getCompanyBySlug('missing'), undefined)
 })
 
 test('keeps Revelation as the only public project destination', () => {
@@ -39,6 +59,20 @@ test('falls back to the institution for unknown selections', () => {
   assert.equal(getUniverseEntry(null), DIVERGENT_WORLD)
 })
 
+test('routes every universe selection to its detailed public surface', () => {
+  assert.equal(getUniverseEntryPath(DIVERGENT_WORLD), '/about')
+  assert.deepEqual(
+    DIVISIONS.map(getUniverseEntryPath),
+    [
+      '/companies/systems',
+      '/companies/media',
+      '/companies/design',
+      '/companies/ventures',
+      '/companies/properties',
+    ],
+  )
+})
+
 test('defines true 3D orbital data without interaction state', () => {
   for (const division of DIVISIONS) {
     assert.deepEqual(Object.keys(division.orbit ?? {}).sort(), [
@@ -52,12 +86,20 @@ test('defines true 3D orbital data without interaction state', () => {
   }
 })
 
-test('keeps Design within the visible outer system', () => {
-  const mediaDistance = DIVISIONS.find(({ id }) => id === 'media')?.orbit
-    ?.distance
-  const designDistance = DIVISIONS.find(({ id }) => id === 'design')?.orbit
-    ?.distance
+test('keeps every orbit ordered inside the visible outer system', () => {
+  assert.deepEqual(
+    DIVISIONS.map((company) => company.orbit?.distance),
+    [12, 17, 19, 22, 25],
+  )
+})
 
-  assert.equal(designDistance, 19)
-  assert.ok(designDistance! > mediaDistance!)
+test('keeps the homepage institutional language concise and public', () => {
+  assert.equal(
+    DIVERGENT_WORLD.mission,
+    'Create gravity around the frontiers that advance human life and well-being.',
+  )
+  assert.equal(DIVERGENT_WORLD.role, 'The institution')
+  assert.equal(DIVERGENT_WORLD.status, 'Institution')
+  assert.equal(DIVISIONS.some((entry) => entry.id === 'ventures'), true)
+  assert.equal(DIVISIONS.some((entry) => entry.id === 'properties'), true)
 })

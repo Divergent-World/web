@@ -1,24 +1,10 @@
+@import "./theme.css";
+
 /* Divergent.World — global foundation.
    Everything here is truly global: reset, palette, type, and the generated
    star field data consumed by the homepage composition. */
 
 :root {
-  color-scheme: dark;
-
-  --ink: #080706;
-  --ivory: #f3eadc;
-  --bronze: #b98550;
-  --oxblood: #682827;
-  --void: var(--ink);
-  --text: var(--ivory);
-
-  --font-sans:
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  --font-serif:
-    ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
-    "Times New Roman", serif;
-
   /* Star field: deterministic positions, baked at authoring time so the
      backdrop costs zero DOM nodes and zero JavaScript. */
   --stars-still:
@@ -125,7 +111,7 @@ a {
 }
 
 :focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 4px;
   border-radius: 2px;
 }
