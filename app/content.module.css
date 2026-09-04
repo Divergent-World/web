@@ -88,7 +88,12 @@
 .indexRow h2,
 .indexRow h3 { font: 400 clamp(1.35rem, 2.4vw, 2.1rem)/1.05 var(--font-serif); }
 .indexRow h2 a,
-.indexRow h3 a { text-decoration: none; }
+.indexRow h3 a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  text-decoration: none;
+}
 
 .sequence {
   display: flex;
@@ -192,7 +197,12 @@
   .section > p,
   .aphorism,
   .prose h2,
-  .prose h3 { color: #000; }
+  .prose h3,
+  .mu,
+  .eyebrow,
+  .metadata,
+  .status,
+  .indexMeta { color: #000; }
   .prose section,
   .aphorism { break-inside: avoid; }
   .prose h2,

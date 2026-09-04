@@ -31,3 +31,10 @@
 @media (max-width: 30rem) {
   .title { font-size: clamp(2.65rem, 15vw, 4.25rem); }
 }
+
+@media print {
+  .eyebrow,
+  .title,
+  .lede,
+  .metadata { color: #000; }
+}
