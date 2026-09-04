@@ -285,6 +285,25 @@
   border-top: 1px solid rgba(243, 234, 220, 0.12);
 }
 
+.newsIndex {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin-top: clamp(2rem, 5vw, 4rem);
+  border-top: 1px solid rgba(243, 234, 220, 0.12);
+}
+
+.newsRow {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.newsRow h3 { font: 400 clamp(1.35rem, 2.4vw, 2rem)/1.05 var(--font-serif); }
+.newsRow h3 a { text-decoration: none; }
+.newsRow > p { color: var(--signal-body); font-size: 0.875rem; line-height: 1.7; }
+
 .companyRow {
   display: grid;
   grid-template-columns: minmax(10rem, 0.9fr) minmax(10rem, 1fr) minmax(14rem, 1.4fr) auto;
@@ -468,6 +487,8 @@
     grid-template-columns: minmax(8rem, 0.8fr) 1fr;
     padding-block: 1.5rem;
   }
+
+  .newsIndex { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 30rem) {

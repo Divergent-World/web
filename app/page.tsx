@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { createEmailHref } from '@/lib/site'
+import { NEWS } from '@/lib/news'
 import { DIVISIONS } from '@/lib/universe'
 import UniverseExperience from './components/UniverseExperience'
 import styles from './page.module.css'
@@ -43,6 +44,29 @@ export default function Home() {
               <Link href={`/companies/${company.slug}`}>
                 Explore {company.name}
               </Link>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id="latest"
+        className={styles.editorialSection}
+        aria-labelledby="latest-title"
+      >
+        <p className={styles.eyebrow}>News</p>
+        <h2 id="latest-title">Latest signal.</h2>
+        <div className={styles.newsIndex}>
+          {NEWS.slice(0, 3).map((entry) => (
+            <article className={styles.newsRow} key={entry.slug}>
+              <div className={styles.companyMeta}>
+                <span>{entry.category}</span>
+                <time dateTime={entry.publishedAt}>{entry.publishedAt}</time>
+              </div>
+              <h3>
+                <Link href={`/news/${entry.slug}`}>{entry.title}</Link>
+              </h3>
+              <p>{entry.description}</p>
             </article>
           ))}
         </div>
