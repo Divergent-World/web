@@ -157,7 +157,7 @@ reader navigation.
 /companies/design
 /companies/ventures
 /companies/properties
-/company
+/about
 /manifesto
 /news
 /news/[slug]
@@ -175,7 +175,7 @@ Supporting machine-readable routes:
 ```
 
 No separate `Work with us` route is created. Careers owns employment and
-general-interest inquiries. Company owns founder, culture, partnership, and
+general-interest inquiries. About owns founder, culture, partnership, and
 investor invitations.
 
 ## Page Designs
@@ -196,7 +196,7 @@ The homepage remains the visual gateway and uses this sequence:
 5. **Careers and collaboration** - short paths for prospective teammates,
    founders, collaborators, and investors.
 6. **The founder** - preserve the current dissolving Ali Rahman portrait and
-   expand its text with a link to Company.
+   expand its text with a link to About.
 7. **Institutional footer** - complete site map, company links, Revelation,
    contact email, RSS, and machine-readable destinations where appropriate.
 
@@ -210,7 +210,7 @@ compact two-row layout on narrow screens. Every control retains a minimum
 `/manifesto` is titled `Create Gravity` and is designed for sustained reading.
 It explains noise, signal, coherence, gravity, attraction, transformation, the
 frontier, and the black-hole analogy in plain language. It ends with an
-invitation to Careers and Company rather than a conversion form.
+invitation to Careers and About rather than a conversion form.
 
 The page includes print styles that remove navigation, atmosphere, and motion;
 switch to black text on white; retain the title and section hierarchy; and
@@ -239,9 +239,9 @@ and data source while supplying substantive company-specific content:
 Divergent Media links to Revelation. Other companies do not invent projects or
 destinations.
 
-### Company
+### About
 
-`/company` is the institutional About page. It contains:
+`/about` is the institutional About page. It contains:
 
 - the public definition and mission;
 - the founder composition and Ali Rahman's role;
@@ -326,7 +326,7 @@ The theme follows eight principles:
 
 ### Preserved palette
 
-The existing values are preserved exactly:
+The core existing values are preserved exactly:
 
 | Role | Value |
 | --- | --- |
@@ -342,6 +342,12 @@ The existing values are preserved exactly:
 The current transparent ivory, bronze, and oxblood layers also remain visually
 unchanged. They become semantic custom properties so pages do not reproduce
 literal RGBA values.
+
+Existing component-bound accents also remain unchanged: the institution and
+company orbit colors (`#f4dfbe`, `#f2e5cd`, `#d6a76c`, `#7c2f2d`) and the
+favicon colors (`#ffd8b4`, `#ff9e60`, `#ff8a3d`, `#cfe0ff`, `#000000`). They
+are documented as specialized accents rather than promoted into general page
+tokens.
 
 ### Theme contract
 
@@ -556,7 +562,7 @@ canonical metadata, structured data, and a complete sitemap.
 
 ### Browser and artifact QA
 
-- Verify homepage, Company, Manifesto, Our Work, all five company pages, News,
+- Verify homepage, About, Manifesto, Our Work, all five company pages, News,
   every initial News entry, Careers, and Executive Assistant at desktop width.
 - Verify primary navigation, both disclosure groups, internal links,
   Revelation, and encoded email actions.
