@@ -82,6 +82,18 @@ export default function AboutPage() {
             </a>
           </div>
         </section>
+
+        <section className={styles.section}>
+          <p className={styles.eyebrow}>Future opening</p>
+          <h2>Executive Assistant</h2>
+          <p>
+            Expressions of interest are welcome for a future role supporting
+            Ali Rahman and the operating rhythm of Divergent World.
+          </p>
+          <div className={styles.actions}>
+            <Link href="/careers">View Careers</Link>
+          </div>
+        </section>
       </div>
     </main>
   )
