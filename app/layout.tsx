@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { assetUrl, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/site'
+import SiteShell from './components/site/SiteShell'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -47,8 +48,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" data-theme="event-horizon">
+      <body>
+        <SiteShell>{children}</SiteShell>
+      </body>
     </html>
   )
 }

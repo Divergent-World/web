@@ -1,0 +1,33 @@
+.intro {
+  display: grid;
+  gap: 1rem;
+  width: min(100%, var(--content-width));
+}
+
+.eyebrow,
+.metadata {
+  color: var(--signal-warm);
+  font: 0.6875rem/1.4 var(--font-mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.title {
+  max-width: 16ch;
+  font: 400 clamp(3rem, 8vw, 7.5rem)/0.92 var(--font-serif);
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.lede {
+  max-width: var(--reading-width);
+  color: var(--signal-body);
+  font-size: clamp(1rem, 1.6vw, 1.35rem);
+  line-height: 1.6;
+}
+
+.metadata { color: var(--signal-faint); }
+
+@media (max-width: 30rem) {
+  .title { font-size: clamp(2.65rem, 15vw, 4.25rem); }
+}
