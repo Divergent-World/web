@@ -44,7 +44,8 @@ export const DIVERGENT_WORLD: UniverseEntry = {
   id: 'world',
   name: 'Divergent World',
   role: 'The institution',
-  mission: 'Technology, media, and design in service of human potential.',
+  mission:
+    'Create gravity around the frontiers that advance human life and well-being.',
   description:
     'One enduring institution where capability, culture, and products reinforce one another.',
   purpose:

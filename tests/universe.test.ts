@@ -77,3 +77,14 @@ test('keeps every orbit ordered inside the visible outer system', () => {
     [12, 17, 19, 22, 25],
   )
 })
+
+test('keeps the homepage institutional language concise and public', () => {
+  assert.equal(
+    DIVERGENT_WORLD.mission,
+    'Create gravity around the frontiers that advance human life and well-being.',
+  )
+  assert.equal(DIVERGENT_WORLD.role, 'The institution')
+  assert.equal(DIVERGENT_WORLD.status, 'Institution')
+  assert.equal(DIVISIONS.some((entry) => entry.id === 'ventures'), true)
+  assert.equal(DIVISIONS.some((entry) => entry.id === 'properties'), true)
+})

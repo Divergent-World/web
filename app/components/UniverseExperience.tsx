@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import {
   useCallback,
   useEffect,
@@ -77,9 +78,19 @@ export default function UniverseExperience() {
       </UniverseErrorBoundary>
 
       <div className={styles.sceneIntro}>
-        <p>Divergent World · Technology · Media · Design</p>
-        <h1>Build what makes us more human.</h1>
-        <p>Drag to orbit · Pinch to zoom · Scroll explores to the edge</p>
+        <p>Divergent World · A learning organization for doers</p>
+        <h1>Create gravity.</h1>
+        <p>
+          We cut through noise, concentrate effort, and use AI to expand human
+          capability and well-being.
+        </p>
+        <div className={styles.heroActions}>
+          <a href="#institution">Explore the institution</a>
+          <Link href="/careers">Careers</Link>
+        </div>
+        <p className={styles.gestureHint}>
+          Drag to orbit · Pinch to zoom · Scroll explores to the edge
+        </p>
       </div>
 
       <nav
@@ -122,9 +133,9 @@ export default function UniverseExperience() {
         </div>
       </article>
 
-      <a className={styles.scrollCue} href="#about">
+      <a className={styles.scrollCue} href="#signal">
         <span>Universe gestures explore</span>
-        <strong>This strip continues to About ↓</strong>
+        <strong>Continue through the signal ↓</strong>
       </a>
     </section>
   )
